@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-11-03T10:28:54-06:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">shane donahue</title><entry><title type="html">The C Programming Language</title><link href="http://localhost:4000/c/" rel="alternate" type="text/html" title="The C Programming Language" /><published>2019-10-01T00:00:00-05:00</published><updated>2019-10-01T00:00:00-05:00</updated><id>http://localhost:4000/c</id><content type="html" xml:base="http://localhost:4000/c/"></content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Chocolate Shake Rankings</title><link href="http://localhost:4000/shake-rankings/" rel="alternate" type="text/html" title="Chocolate Shake Rankings" /><published>2019-07-11T00:00:00-05:00</published><updated>2019-07-11T00:00:00-05:00</updated><id>http://localhost:4000/shake-rankings</id><content type="html" xml:base="http://localhost:4000/shake-rankings/">&lt;p&gt;The most consistent and dominating culinary presence in my life has, without a doubt, been the omnipotent chocolate shake. It has a place at an incredible number of restaurants, despite its seemingly niche purpose as a burger companion– this might be because so many places serve burgers. Anyhow, here are my personal subjective rankings of every chocolate shake I’ve tried:&lt;/p&gt;
+
+&lt;p&gt;1  &lt;span style=&quot;font-size: 1.5em;&quot;&gt;&lt;b&gt;Five Guys&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;The best shake I’ve had is from Five Guys because of its incredibly good flavor and consistency. They also allow you to mix flavors, which I would think (due to the greater combination of possibilities) would reduce quality, but I’ve found chocolate and banana is a great combo. Although, as anyone who has visited Five Guy’s knows, it’s very expensive.&lt;/p&gt;
+
+&lt;p&gt;Price: 3/10&lt;br /&gt;
+Flavor: 10/10&lt;br /&gt;
+Consistency: 10/10&lt;br /&gt;
+Food-companionship: 9/10&lt;br /&gt;
+Reproducibility: 7/10&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;2 &lt;span style=&quot;font-size: 1.5em;&quot;&gt;&lt;b&gt;In-N-Out&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;In-N-Out is second on the list due to its consistency (in both senses of the word) and smooth flavor. It just tastes really good. I’m not a food critic or a shill, but In-N-Out shakes go well with their fries and burger, while being pretty cheap. You can easily get two full meals (with large shakes) for under twenty dollars.&lt;/p&gt;
+
+&lt;p&gt;Price: 8/10&lt;br /&gt;
+Flavor: 9/10&lt;br /&gt;
+Consistency: 8/10&lt;br /&gt;
+Food-companionship: 9/10&lt;br /&gt;
+Reproducibility: 7/10&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;3 &lt;span style=&quot;font-size: 1.5em;&quot;&gt;&lt;b&gt;Jack in the Box&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Jack in the Box delivers a quality shake that goes well with their food (tacos especially). Very solid consistency and taste, and it almost always tastes exactly the same. For Jack in the Box though, where you can get 10 tacos for around $6, a $4 or $5 shake is a bit too expensive.&lt;/p&gt;
+
+&lt;p&gt;Price: 5/10&lt;br /&gt;
+Flavor: 8/10&lt;br /&gt;
+Consistency: 9/10&lt;br /&gt;
+Food-companionship: 8/10&lt;br /&gt;
+Reproducibility: 10/10&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;4 &lt;span style=&quot;font-size: 1.5em;&quot;&gt;&lt;b&gt;Chick-fil-A&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;I stand by my statement that Chick-fil-A is just slightly fancier McDonalds. Their chicken sandwich is pretty good and goes with the shake pretty well. It loses slightly to Jack in the Box by a hair in flavor and food compatibility, although it’s less expensive.&lt;/p&gt;
+
+&lt;p&gt;Price: 7/10&lt;br /&gt;
+Flavor: 7/10&lt;br /&gt;
+Consistency: 8/10&lt;br /&gt;
+Food-companionship: 7/10&lt;br /&gt;
+Reproducibility: 9/10&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;5 &lt;span style=&quot;font-size: 1.5em;&quot;&gt;&lt;b&gt;Wendy’s&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Wendy’s shake or frosty or whatever is the bottom of the barrel for the mid-tier shakes. It’s alright, but I wouldn’t often spend my own money on it. Doesn’t go too well with most things on the menu, a bit too expensive for the product, and mediocre consistency.&lt;/p&gt;
+
+&lt;p&gt;Price: 5/10&lt;br /&gt;
+Flavor: 7/10&lt;br /&gt;
+Consistency: 5/10&lt;br /&gt;
+Food-companionship: 6/10&lt;br /&gt;
+Reproducibility: 8/10&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;6 &lt;span style=&quot;font-size: 1.5em;&quot;&gt;&lt;b&gt;Swensons&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a small restaurant chain, but the shake I had there was pretty bad. I opted for the banana and chocolate (naively hoping for a replication of Five Guy’s), but it turns out that, at least for Swensons, mixing flavors results in something extremely artificial-tasting and off-putting. It had a solid consistency and I believe the plain chocolate would’ve been much better. Can’t score reproducibility since I’ve only had one. Decent price.&lt;/p&gt;
+
+&lt;p&gt;Price: 6/10&lt;br /&gt;
+Flavor: 1/10&lt;br /&gt;
+Consistency: 7/10&lt;br /&gt;
+Food-companionship: 7/10&lt;br /&gt;
+Reproducibility: X/10&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;7 &lt;span style=&quot;font-size: 1.5em;&quot;&gt;&lt;b&gt;Shake Shack&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;For a place with “shake” in the name, Shake Shack’s chocolate shake was terrible. I can’t score its reproducibility because I’d never get it again, but it tastes like someone blended ice and squirted in some Hershey’s chocolate syrup. It’s also very expensive! Like, why? I think the Oreo shake is much better– it’d have to be for them to still be in business.&lt;/p&gt;
+
+&lt;p&gt;Price: 3/10&lt;br /&gt;
+Flavor: 2/10&lt;br /&gt;
+Consistency: 1/10&lt;br /&gt;
+Food-companionship: 4/10&lt;br /&gt;
+Reproducibility: X/10&lt;br /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">The most consistent and dominating culinary presence in my life has, without a doubt, been the omnipotent chocolate shake. It has a place at an incredible number of restaurants, despite its seemingly niche purpose as a burger companion– this might be because so many places serve burgers. Anyhow, here are my personal subjective rankings of every chocolate shake I’ve tried:</summary></entry><entry><title type="html">Self Studying for AP Computer Science</title><link href="http://localhost:4000/self-studying-apcs/" rel="alternate" type="text/html" title="Self Studying for AP Computer Science" /><published>2019-05-17T00:00:00-05:00</published><updated>2019-05-17T00:00:00-05:00</updated><id>http://localhost:4000/self-studying-apcs</id><content type="html" xml:base="http://localhost:4000/self-studying-apcs/">&lt;p&gt;Choosing high school classes can be tough. There are many classes and relatively few due to the bastardization of the semester system, and the choices you make affect you a lot more due to the incredibly restrictive schedule and attendance policy of most high schools.&lt;/p&gt;
+
+&lt;p&gt;So, in my circumstances, I wanted to take AP Computer Science for a few reasons:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;To skip introductory computer science in college&lt;/li&gt;
+  &lt;li&gt;To prove to myself that I can study for it by myself and enjoy it&lt;/li&gt;
+  &lt;li&gt;To learn more about computer science&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;So, &lt;strong&gt;how did I self study for this&lt;/strong&gt;? I got a 5 on my exam– which isn’t meant to brag, but rather suggest that my plan of study was effective. I used four resources and methods:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Barron’s AP Computer Science Book.&lt;/strong&gt; Hands down the best ‘textbook’ for this course, covers all the material concisely and well, with a bunch of practice problems and examples.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;YouTube videos.&lt;/strong&gt; There’s a lot of high quality content put up on YouTube by APCS teachers, especially the yearlong reviews (“&lt;em&gt;AP Computer Science in X minutes&lt;/em&gt;”). These serve as a good overview before studying, and a review before the test.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;My school’s APCS finals.&lt;/strong&gt; Asking my school’s AP Computer Science teacher if I could take his final was a great way to force myself to study, and a good place to practice and receive feedback.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Codingbat&lt;/strong&gt;. Codingbat was a really good tool (especially the AP problem set) for getting practice actually writing Java code. Practice, practice, practice.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Those are the resources I used, but in what order, and how long did it take me?&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note: I did not spend much time studying for this test. I had some previous knowledge about bash scripting and procedural programming languages, as well as general knowledge about number systems and other basic CS concepts. If you do not have this base, you should probably take the class if you can.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Here’s a summary of what I did, in order. I started studying 17 April 2019, a month before the test.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Watch an APCS yearlong review video on YouTube.&lt;/strong&gt; This will give you an idea of the scope of the course, and you can do it while eating something. I did this during the week, took about an hour.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Read the Barron’s AP Computer Science Book&lt;/strong&gt;. Just straight up, front to back. The chapters are super short, the majority of the book is practice questions. Take notes if it helps you– I have my notes hosted on this website. I did not do the practice questions when I read it. This took me two Saturdays.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Do Codingbat problems&lt;/strong&gt;. In order to help you actually write code, make sure you are practiced with manipulating strings, boolean values, arrays, etc. Codingbat problems do NOT cover two dimensional arrays, or writing method headers– these two are things you should search online for practice with, or just use a text editor and a Java compiler. I did this after I finished the Barron’s book for about three days.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Take practice tests and do practice problems&lt;/strong&gt;. If you can take the APCS final with the kids in the class, do that. If not, take at least one Barron’s practice test, or a test from somewhere else. I did this after doing Codingbat problems, and the final was spread out over three days. I also did Barron’s chapter problems for more specific questions in the week before the exam.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Review your practice test and notes (if taken)&lt;/strong&gt;. About three days before the exam, you should know all the course material and be well practiced. I took the three days before the exam to review my notes, and the day of the exam, reviewed my practice test (do this earlier if possible). Also, watch another YouTube yearlong review.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Note: be aware of changes to the course (especially for 2019 - 2020) and make sure your study materials are up to date. Know that you will have the Java quick reference during the test, and be familiar with the published AP Java subset.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Okay, cool, &lt;strong&gt;how did I motivate myself&lt;/strong&gt;? I was interested in the topic, and knew a lot of general information beforehand. The most difficult topic for me to learn was Object Orientated Programming principles (inheritance, polymorphism, etc) since I had only used procedural languages before. I also had to learn the specifics of Java syntax, data types, seemingly trivial rules, and whatnot. But anyway, my main methods of motivation or maintaining consistency were:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Sign up for the test way ahead of time.&lt;/li&gt;
+  &lt;li&gt;Plan your studying time and resources to use beforehand.&lt;/li&gt;
+  &lt;li&gt;Ask the APCS teacher to meet with you, or take a final, or something to hold yourself accountable.&lt;/li&gt;
+  &lt;li&gt;Have friends that take the class and exam to discuss problems with.&lt;/li&gt;
+  &lt;li&gt;Have reasons for wanting to take the test other than just doing well on an AP test.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Good luck if you choose to self study AP Computer Science!&lt;/p&gt;</content><author><name></name></author><summary type="html">Choosing high school classes can be tough. There are many classes and relatively few due to the bastardization of the semester system, and the choices you make affect you a lot more due to the incredibly restrictive schedule and attendance policy of most high schools.</summary></entry><entry><title type="html">AP Computer Science</title><link href="http://localhost:4000/apcs/" rel="alternate" type="text/html" title="AP Computer Science" /><published>2019-05-17T00:00:00-05:00</published><updated>2019-05-17T00:00:00-05:00</updated><id>http://localhost:4000/apcs</id><content type="html" xml:base="http://localhost:4000/apcs/"></content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Winning CyberPatriot 2019</title><link href="http://localhost:4000/winning-cyberpatriot/" rel="alternate" type="text/html" title="Winning CyberPatriot 2019" /><published>2019-04-12T00:00:00-05:00</published><updated>2019-04-12T00:00:00-05:00</updated><id>http://localhost:4000/winning-cyberpatriot</id><content type="html" xml:base="http://localhost:4000/winning-cyberpatriot/">&lt;p&gt;TL;DR: CyberPatriot was a &lt;em&gt;ton&lt;/em&gt; of fun and was the perfect blend of competition and self study to capture my interest intensely. I’m overjoyed that we won first place in All Service, and I’m overjoyed that my effort paid off.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../assets/images/cpxiwinner.jpg&quot; alt=&quot;CP11 AS Winners&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With that said, let me take you through the saga. I previously thought you had to be some kind of cybergod to place, but that’s simply not true.&lt;/p&gt;
+
+&lt;h3 id=&quot;i-my-experience&quot;&gt;I. My Experience&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;CyberPatriot has been one of the most enjoyable and fulfilling experiences of my time in high school.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;I want to preface this post with the previous sentence, because any of my criticisms of the program are far outweighed by the positive influence of CyberPatriot, both in my life and in the lives of many others.&lt;/p&gt;
+
+&lt;p&gt;Beware, this post is written from my colored perspective and is narcissistically focused on myself (although the intention is to discuss the impact of CyberPatriot through the lens of one of its participants).&lt;/p&gt;
+
+&lt;h4 id=&quot;section-1-my-introduction&quot;&gt;Section 1: My Introduction&lt;/h4&gt;
+
+&lt;p&gt;Going into high school, I thought I wanted to be a software engineer at a place like Google or Microsoft (ambitious, I know): all I knew was that I liked computers. I also enjoyed physical security, locks, lock picking, and taking things apart, but that would never be applicable in any computer-related field. Software engineering was the only field I had exposure to. Although I had looked at job postings for “Site Reliability Engineers” or a few security positions, I had never considered them to be any kind of goal, because I thought it was out of my scope. My mental image of these positions were people stuck in dark, medieval data centers, rapidly replacing broken wires and faulty hard drives for their 9-5.&lt;/p&gt;
+
+&lt;p&gt;I saw a “CyberPatriot” poster at my school and figured I would apply. I liked computers, I played (probably too many hours of) video games, I’d probably be good at it. As one of the competitors on one of the freshmen teams, I wasn’t able to do much, however this was due mostly to the poor administration of the program at the time (at our school). Although CyberPatriot could make it a lot easier to get introduced to the program, as I’ve previously argued, it is in the end an academic competition, and an inability to use the materials provided indicates the want of pedantic tendencies that would be necessary to make it to Nationals; I don’t fault CyberPatriot in any way for my lack of involvement freshmen year. The point was, it was a simple introduction, and although I didn’t accomplish anything, I acquired a goal to make it onto Varsity the following year.&lt;/p&gt;
+
+&lt;h4 id=&quot;section-2-a-lucky-encounter&quot;&gt;Section 2: A Lucky Encounter&lt;/h4&gt;
+
+&lt;p&gt;I greatly respect the goal behind CyberPatriot, the people who run it, the AFA, and of course fellow competitors. My second year, after building a &lt;em&gt;very&lt;/em&gt; basic script to help get onto our “Varsity” team, Frank (a fantastic dude) was persistent enough to help teach me (or rather, encourage self-study) and our other team members. &lt;strong&gt;This&lt;/strong&gt; was the jump that would make CyberPatriot more fulfilling for a majority of the teams, that (or rather, who) I happened to be lucky enough to encounter: &lt;em&gt;a competent, persistent, dedicated person interested in CyberPatriot.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;This competition is a rather dull, distilled image of cybersecurity, which makes it all the more exceptional. There is no threat or malicious actor (besides the competitor themself), yet the competition is exciting, adrenaline-fueled, and fulfilling. Being able to receive gratification for self study in the infosec field gave me enough motivation to continue to pursue it, and realize that it was an immensely interesting field. It was like computer science, but more practical. In no other field could I read about how something worked in a book, then type at my computer and have practical experience with ten minutes, or walk outside my room and have a new view of the appliances that drive much of our lives. It also helps that infosec is a rapidly growing field with a lot of opportunities, like CyberPatriot itself.&lt;/p&gt;
+
+&lt;p&gt;Thus, I attribute it mostly to Frank, and a bit to myself for self-studying Linux skills, that we qualified for Nationals. Going to the Nationals competition in my sophomore year was an extremely enjoyable experience and one that solidified the real-world aspect of this abstract idea of “security”: it’s real, it’s applicable (hey now there’s a red team trying to get into your vulnerable machine!), and they’re giving me free food. The CyberPatriot office did a fantastic job of encourage national finalists. The trip was completely free, the rooms were nice (although they did attempt to put four people in one relatively small room with two beds), the hotel looked nice. They also showed competitors the money behind cyber security as extra encouragement, with many free things and small touches (such as candy delivered to the competitor’s doors when the theme was “Always Food Available”). As an additional benefit, the harbor was a great view. Although we didn’t place in the top three in CPIX, in my mind, getting to go there in the first place, surrounded by amazing people of my own age and experts in the field, was winning.&lt;/p&gt;
+
+&lt;p&gt;Or this was my point of view, at least. I lacked the self confidence due to the grand nature of the program, I thought that getting to nationals at all (in All Service, no less) was the most I could ask for and obtain. This was my critical mistake, along with not knowing how to study and practice.&lt;/p&gt;
+
+&lt;h4 id=&quot;section-3-independence&quot;&gt;Section 3: Independence&lt;/h4&gt;
+
+&lt;p&gt;And, next comes CyberPatriot X, and as team captain, my team made it to Nationals once more (100 points above second place, while second place was 3 points above third). Although, we didn’t place top in All Service in the online rounds. This year was very exciting, especially as I got to assume more responsibility. The experience was mostly a revamped version of the previous year, and one that I felt much more burden for, whether in succeeding or not. And succeed we did not. We placed fifth, which warrants no monetary prize, and did fairly poorly on the largest section of the competition (Network Security Master Challenge), with a solid -400 points from SLA violations. But this failed to discourage me (in the long term)– all it really did was illuminate my lack of experience and practical ability. I used this to motivate myself even more for the following year, CyberPatriot XI, my final year as I was a senior in high school.&lt;/p&gt;
+
+&lt;p&gt;Make no mistake, I was absolutely discouraged. The events of CyberPatriot X for me, due to no other than my own lack of knowledge about myself and others on my team. I needed to adjust my sights much higher: first place at Nationals (for All Service– I wasn’t about to ditch my unit and friends). Without failing and having an extremely high goal to compensate for my lackluster goals during CPX, I doubt my team would’ve won.&lt;/p&gt;
+
+&lt;p&gt;This year I also had a very toxic mindset for ‘winning’ the competition, in which I thought I could just carry myself and I didn’t need to teach any of my teammates. Obviously I couldn’t even carry myself, and expecting to carry four other people single-handedly is foolish.&lt;/p&gt;
+
+&lt;p&gt;Achieving a greater understanding of my own idiosyncrasies and habits through studying for the CCENT and reading a lot helped me tons, and thus began the next year. At the end of this year as well, I (along with a few other teams) compiled a list of complaints and suggestions, and emailed it to the CyberPatriot Office.&lt;/p&gt;
+
+&lt;h4 id=&quot;section-4-cyberpatriot-xi&quot;&gt;Section 4: CyberPatriot XI&lt;/h4&gt;
+
+&lt;p&gt;I started this year with a single goal: place first in All Service at Nationals. I had the previous experience to know what I did wrong and what kind of challenges were at Nationals (not really the same as the online rounds), over the summer I studied for my CCENT, spent a lot of time on HacktheBox, rewrote our checklists with a focus on ‘active defense,’ and most importantly, I spent a TON of time practicing, with and without my teammates.&lt;/p&gt;
+
+&lt;p&gt;The previous year I put together, with a friend from another team, a list of suggestions for changes in CyberPatriot (17 suggestions) and I emailed them to the CyberPatriot Office. Although they didn’t respond, I saw a lot of the changes we suggested put into place, and that was really neat. It was like seeing that they were listening and more human than I previously thought.&lt;/p&gt;
+
+&lt;p&gt;Anyhow, the actual Nationals experience started poorly because our flight got canceled, but we made it anyhow and practiced with the probable services they would give us the night before, then we competed in the NSMC and Cisco challenge, one stress-filled day of waiting and a stress-filled dinner later, we won first place in our division.&lt;/p&gt;
+
+&lt;p&gt;I don’t really know what insight to glean from this except that I was incredibly motivated to do well to prove to myself that I could (along with my team) succeed. I suppose it is then, worthwhile to examine what created that motivation and how I was able to successfully act upon it. I really enjoy learning how things work, as a ‘fundamental’ part of myself, and then manipulating those things based on my understanding. I also heavily value planning, and newly, I’ve acquired the appreciation and value of practice. My classes were also easier this year than last, so I had more time. I guess I don’t really know why I was able to spend so much time and energy on CyberPatriot other than it being a clear avenue for me to prove to myself that I can do something of this sort.&lt;/p&gt;
+
+&lt;p&gt;So, set a goal, and make sure you really really really really really want to obtain that goal, then plan out a possible path (even if it changes a lot– you don’t know what you don’t know so how can you teach yourself if you don’t know what to teach? Just guess) and follow it.&lt;/p&gt;
+
+&lt;h3 id=&quot;ii-criticisms&quot;&gt;II. Criticisms&lt;/h3&gt;
+
+&lt;p&gt;There is not enough &lt;strong&gt;technical information&lt;/strong&gt; or resources provided for new teams or competitors. This is easily remediated by providing a list of ‘suggested readings’ or articles. It’s incredibly difficult to get an accurate scope of vulnerabilities or study material with the modules provided by CyberPatriot without prior knowledge about system hardening or infosec.&lt;/p&gt;
+
+&lt;p&gt;CyberPatriot has limited technical powerpoints (which are helpful), but the subsection of the pool of &lt;em&gt;possible&lt;/em&gt; vulnerabilities that CyberPatriot chooses to use must be enumerated through trial and error, and personal research. In a way, this is a fantastic way to encourage the self-study and rigorous research of securing an operating system, but not if the same subsection is repeatedly reused. With reusing &amp;gt;80% of vulnerabilities, CyberPatriot provided a strong advantage to teams who have competed before and may remember (or store, although that is against their rules) vulnerabilities from previous years. A stronger supply of technical information provided on behalf of CyberPatriot and greater variance of vulnerabilities from year to year would enhance the practical fairness of the program to newer competitors, and raise the accuracy of assessing the competence of older competitors.&lt;/p&gt;
+
+&lt;p&gt;The rule in and of itself that it is not permitted to store or share vulnerabilities hurts the potential of the program as a larger learning experience. Of course, with this system, this rule is required to preserve the integrity of their testing system (which is infrequently modified at its core, as previously mentioned). If they were to release a small subsection of vulnerabilities, and vary their vulnerabilities from year to year and round to round, it would be a good compromise. Also, the rule that people can’t publicize anything (resources, guides, scripts, software, anything) related to CyberPatriot to events involving CyberPatriot software seems counter-intuitive to generating more interest in the program. I understand preventing sharing of scripts, but it would seem that guides and resources should be permitted to be publicly accessible, since it’s commonplace for teams to ‘pass down’ knowledge in exactly the same form from one year to another, especially at schools with large CyberPatriot programs.&lt;/p&gt;
+
+&lt;p&gt;Another suggestion/criticism involves the qualification for Nationals with the two cateogries. As it stands (CyberPatriot X), there are two tiers (ignoring Middle School): Open divison (any high school, non-JROTC) and All Service division (AFJROTC, NJROTC, AJROTC, MCJROTC, CAP, Naval Sea Cadets). Two teams from each category in All Service go to Nationals (plus one wildcard), and the twelve top teams in the Open Division. CyberPatriot began primarily as a military program and only allowed open high school teams beginning in CPIII, and I don’t think that CyberPatriot should remove this division of categories, but to perhaps present a more fair, skill-based competition (given that Open teams often perform much better than All Service teams, and have over twice the amount of competitors in All Service as of CPX), CyberPatriot should allow six of the highest Open division teams, and six from All Service (one for each category), and the remaining 12 slots should be reserved for whichever team has the highest score (Open or All Service). This would be a good compromise between a purely skill-based competition and the way it is currently, because I think it is in the best interest of CyberPatriot to &lt;strong&gt;prioritize skill over category&lt;/strong&gt;. Or, perhaps, &lt;strong&gt;increase the number of teams at nationals&lt;/strong&gt; (this may not be a good idea if logistically not favorable).&lt;/p&gt;
+
+&lt;p&gt;My final criticism is that many schools have mentors that have previous knowledge of most of the vulns, and, due to the first point, have multiple high-scoring teams. This year, CPX in 2018, all the Open division National finalists are from five schools. Five schools sending up to three teams each. In order to allow diversity of competitors and reduce advantage due to a coach, &lt;strong&gt;allowing only one team per school&lt;/strong&gt; would be a good decision.&lt;/p&gt;
+
+&lt;h3 id=&quot;iii-moving-forward&quot;&gt;III. Moving Forward&lt;/h3&gt;
+
+&lt;p&gt;The people running the CyberPatriot program are fantastic and I thank them for their commitment to the field and in younger people. Being exposed to CyberPatriot, and hopefully a competent mentor, is invaluable for students who have an inclination towards computers but are not yet sure what they want to do in life. You never know if you’ll love it if you don’t try.&lt;/p&gt;</content><author><name></name></author><summary type="html">TL;DR: CyberPatriot was a ton of fun and was the perfect blend of competition and self study to capture my interest intensely. I’m overjoyed that we won first place in All Service, and I’m overjoyed that my effort paid off.</summary></entry><entry><title type="html">CyberPatriot Red vs Blue Team Scoring Engine</title><link href="http://localhost:4000/cyberpatriot-ccdc-scoring-engine/" rel="alternate" type="text/html" title="CyberPatriot Red vs Blue Team Scoring Engine" /><published>2019-02-19T00:00:00-06:00</published><updated>2019-02-19T00:00:00-06:00</updated><id>http://localhost:4000/cyberpatriot-ccdc-scoring-engine</id><content type="html" xml:base="http://localhost:4000/cyberpatriot-ccdc-scoring-engine/">&lt;p&gt;I wanted a quick and easy ‘scoring engine’ for CyberPatriot practice. I only knew bash when I wrote this, so I wrote it in bash. It works! Usually.&lt;/p&gt;
+
+&lt;p&gt;You can find it &lt;a href=&quot;https://github.com/543hn/charlatan&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">I wanted a quick and easy ‘scoring engine’ for CyberPatriot practice. I only knew bash when I wrote this, so I wrote it in bash. It works! Usually.</summary></entry><entry><title type="html">SoCal Cyber Cup Challenge 2019</title><link href="http://localhost:4000/winning-socal-cyber-cup/" rel="alternate" type="text/html" title="SoCal Cyber Cup Challenge 2019" /><published>2019-02-16T00:00:00-06:00</published><updated>2019-02-16T00:00:00-06:00</updated><id>http://localhost:4000/winning-socal-cyber-cup</id><content type="html" xml:base="http://localhost:4000/winning-socal-cyber-cup/">&lt;p&gt;SoCal Cyber Cup (SCCC) is a local competition for Southern Californi. It was a jeopardy-style CTF paired with virtual machines hosted on AWS via the “Haiku Cyber Range.” So, a bunch of forensic questions or hints on where to find a flag.&lt;/p&gt;
+
+&lt;p&gt;There were a lot of interesting challenges, like using a flag from one challenge to decrypt a physical USB, and use another flag to decrypt a 7zip archive, which then boots a virtual damn small linux image, which the flag is in the root directory of. Or a bunch of stuff with web servers, locked down web kiosks (forcing web browsing via wget and powershell) and sifting through wireshark captures. It was a good balance of difficulty and interesting variety for high school students. I also got to meet and talk to some opposing teams, and made some friends.&lt;/p&gt;
+
+&lt;p&gt;My team ended up winning, which is pretty neat. One of the other competitors asked me how I prepared– as if I knew. The best answer I’ve come up with is to just do as many other CTFs as possible, compete in other events, read related books, practice as many practical skills as possible (not relying on the theoretical), and to always strive to learn more. Of course, what I ended up telling him was “compete in everything you can,” but whatever.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/sccc19_win.jpg&quot; alt=&quot;SCCC2019 First Place&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A niche thing that I’ve found (for myself, at least), is that it’s really bad to become overly confident in your skills and to think you can win anything without trying, since that can lead to a stagnation of knowledge (since you already know everything– why learn more stuff?). Though, as long as I keep trying harder things and keep losing, I think I’m on the right track.&lt;/p&gt;</content><author><name></name></author><summary type="html">SoCal Cyber Cup (SCCC) is a local competition for Southern Californi. It was a jeopardy-style CTF paired with virtual machines hosted on AWS via the “Haiku Cyber Range.” So, a bunch of forensic questions or hints on where to find a flag.</summary></entry><entry><title type="html">Basics of Web Hacking by Josh Pauli</title><link href="http://localhost:4000/basics-of-web-hacking/" rel="alternate" type="text/html" title="Basics of Web Hacking by Josh Pauli" /><published>2018-11-25T00:00:00-06:00</published><updated>2018-11-25T00:00:00-06:00</updated><id>http://localhost:4000/basics-of-web-hacking</id><content type="html" xml:base="http://localhost:4000/basics-of-web-hacking/"></content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Studying for the CCENT</title><link href="http://localhost:4000/studying-for-the-ccent/" rel="alternate" type="text/html" title="Studying for the CCENT" /><published>2018-08-25T00:00:00-05:00</published><updated>2018-08-25T00:00:00-05:00</updated><id>http://localhost:4000/studying-for-the-ccent</id><content type="html" xml:base="http://localhost:4000/studying-for-the-ccent/">&lt;p&gt;TL;DR: Studying for the CCENT was fun, and knowing yourself allows you to study better.&lt;/p&gt;
+
+&lt;p&gt;I have always been absolutely terrible at studying.&lt;/p&gt;
+
+&lt;p&gt;I love the concept of knowing a lot. Picking up a hefty textbook on physics or math and flipping through it makes me wish I sat down and understood everything in the book. There’s so much knowledge contained within these pages. I don’t know what drives this compulsory infatuation with books and the idea of learning, but, as is paralleled in my studies, concepts are a far cry from practicality and actually &lt;em&gt;doing&lt;/em&gt; things.&lt;/p&gt;
+
+&lt;p&gt;I write this here to internalize and make sense of my experience with self-studying the CCENT. Obviously, if you’re here, it’s your choice, so I really don’t mind rambling. I feel like once ideas are put into words, they become concrete, since they must conform to the customs and methodologies of the English language, and all the sentences and ideas you’ve consumed before. Kind of like a forced modularity at some level.&lt;/p&gt;
+
+&lt;p&gt;Studying for the CCENT has been the first time that I feel like I’ve actually applied myself. Truly put all of my time and effort into something, at least for the week before the exam where I consumed 7+ hours of CBT Nuggets, Wendel Odom’s wisdom, and Boson ExSim practice tests per day.&lt;/p&gt;
+
+&lt;p&gt;How was I able to do this? I had resigned myself to “I’m not able to study,” but in reality, I didn’t think it was necessary. I’ve got pretty good at putting in the minimum amount of effort in schoolwork to get a good grade. In terms of infosec, I mostly learned from doing projects and searching questions I have on a whim, with no grand study plan. This worked to accumulate small bits of knowledge and some bash proficiency, but no deep knowledge of a certain field. Doing CTFs are also fun and helped develop my practical skill, but really, have their limits for actually being a learning tool– they encourage cursory research and basic practical skills.&lt;/p&gt;
+
+&lt;p&gt;I think I was able to study so intensely for a few reasons:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;There was a deadline and a test: studying was a priority.&lt;/p&gt;
+
+    &lt;p&gt;Setting the test date ahead of time helped me solidify a time line to study and summarize all my knowledge, and let me plan out when to take practice tests, how many videos to watch per day, how many pages to review, and made other logistical challenges easier. Without this, I would’ve felt like learning too much to early would lead me to forget things later (a flawed assumption, but present nonetheless) or be able to postpone my studying because it wouldn’t feel like a priority.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;I had someone to study and compete with.&lt;/p&gt;
+
+    &lt;p&gt;Having a ‘study buddy’ is often recommended, but I never found the truth in it, probably because the other criteria on this list were not met, or the buddy was not motivated or disciplined to study as well. But, this time, I had a dedicated friend to help study with me, plan test dates with, and ask questions to. This supplemented my own motivation to study and made it a lot more difficult to postpone the test date. Having a community focused on a test or subject, such as /r/ccna, also helped with accountability and lending me confidence.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The subject material and study resources were very interesting, and at my level.&lt;/p&gt;
+
+    &lt;p&gt;This is, I feel, a large reason why I’ve never been able to do this before. Self-studying for the SAT, chemistry, or calculus just doesn’t have the same spark for me as studying networking or other infosec topics. Even then, when the subject material was exceedingly interesting (my first attempt at Practical Malware Analysis, for example), my study efforts failed in some of the other criteria, or it was above my level at the time. The CCENT exam was precisely at my level when I started studying, and was incredible interesting: Jeremy Cioara was very entertaining and helpful in his ICND1 CBT Nugget videos, and even in the bit drier Odom book, learning all the details of &lt;em&gt;how&lt;/em&gt; the magic of networking worked kept me invested and interested.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;I had pre-planned resources.&lt;/p&gt;
+
+    &lt;p&gt;Just throwing myself into a certain topic without researching and obtaining resources fails almost every time for me. Mainly, this is because there’s no route to start. When I think, “I want to study for X,” it’s incredibly helpful to reduce effort and have confidence in your materials by making the next thought, “I can watch X videos or read X high quality book” rather than “I wonder how to start” or “I think this resource is good that I just found.”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It was summer, and I had free time.&lt;/p&gt;
+
+    &lt;p&gt;It helped that I had a lot of free time, because it was the last week of summer, and I wasn’t tired from the day’s activities. I don’t think this is incredibly necessary, but it made it much more practical and easy to spend 7 hours a day studying.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;My room was clean.&lt;/p&gt;
+
+    &lt;p&gt;This sounds very weird written down, but, in the time before I really started studying for my test, my room was rather cluttered with things that I didn’t enjoy, and I feel, drew me back into other topics rather than letting my focus on what I want to study. I think having a clean, minimal room helps, for me, with every task requiring focus or discipline.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;I was on an eating schedule.&lt;/p&gt;
+
+    &lt;p&gt;Again, another strange point– however, I believe that whenever an &lt;em&gt;essential&lt;/em&gt; (whatever they view as essential) task is given to a human, they tend to expand the time taken to complete it to occupy the whole allotment of time they have. This is usually accompanied by making excuses that they couldn’t complete anything the “wanted” to do, while only having “time” to do the necessary, while in reality spending an incredible amount of time screwing around, be it by eating, watching television or YouTube, or whatever leisure they prefer. This is why only eating one meal a day, or twice a day in between a specific time period, allowed me to focus more on what I wanted to do, while preventing me from filling up my day with food and garbage.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Whatever perfect storm of factors led to my successful studying, I think the most important thing that I got out of this experience (besides the certification) was confidence in myself that I could actually study, and I knew how. Before, I thought I was just incredibly terrible at studying, be it an interesting topic or not. But with a healthy helping of self reflection, I realized, plain and clear, that’s not the case.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/ccentpass.png&quot; alt=&quot;CCENT Passing Score&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">TL;DR: Studying for the CCENT was fun, and knowing yourself allows you to study better.</summary></entry><entry><title type="html">Cisco CCENT ICND1 100-105</title><link href="http://localhost:4000/ccent/" rel="alternate" type="text/html" title="Cisco CCENT ICND1 100-105" /><published>2018-08-25T00:00:00-05:00</published><updated>2018-08-25T00:00:00-05:00</updated><id>http://localhost:4000/ccent</id><content type="html" xml:base="http://localhost:4000/ccent/"></content><author><name></name></author><summary type="html"></summary></entry></feed>

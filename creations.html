@@ -1,0 +1,46 @@
+---
+layout: page
+title: creations
+---
+
+<h2 style="font-size: 3em">creations</h2>
+things i've created or worked on
+
+
+<h2 style="font-size: 2em; margin-top: 50px;">software</h2>
+{% for post in site.posts %}
+    {% if post.software %}  
+            <div class="item">
+                <a class="url" href="{% if post.externalLink %}{{ post.externalLink }}{% else %}{{ site.url }}{{ post.url }}{% endif %}"  style="text-decoration:none">
+                <h3 class="url" style="margin-bottom: 5px;"> {{ post.title | downcase }}</h3>
+                <p style="margin-top: 0px;">{{ post.subtitle | downcase }} </p>   
+                </a>
+            </div>  
+    {% endif %}
+{% endfor %}
+
+
+<h2 style="font-size: 2em; margin-top: 50px;">talks</h2>
+    nothing here yet unfortunately :(
+{% for post in site.posts %}
+    {% if post.media %}  
+            <div class="item">
+                <a class="url" href="{% if post.externalLink %}{{ post.externalLink }}{% else %}{{ site.url }}{{ post.url }}{% endif %}"  style="text-decoration:none">
+                <h3 class="url" style="margin-bottom: 5px;"> {{ post.title | downcase }}</h3>
+                <p style="margin-top: 0px;">{{ post.subtitle | downcase }} </p>   
+                </a>
+            </div>  
+    {% endif %}
+{% endfor %}
+
+<h2 style="font-size: 2em; margin-top: 50px;">misc</h2>
+{% for post in site.posts %}
+    {% if post.misc %}  
+            <div class="item">
+                <a class="url" href="{% if post.externalLink %}{{ post.externalLink }}{% else %}{{ site.url }}{{ post.url }}{% endif %}"  style="text-decoration:none">
+                <h3 class="url" style="margin-bottom: 5px;"> {{ post.title | downcase }}</h3>
+                <p style="margin-top: 0px;">{{ post.subtitle | downcase }} </p>   
+                </a>
+            </div>  
+    {% endif %}
+{% endfor %}

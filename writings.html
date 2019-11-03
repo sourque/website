@@ -1,0 +1,33 @@
+---
+layout: page
+title: writings
+---
+
+<h2 style="font-size: 3em">writings</h2>
+
+<h2 style="font-size: 2em; margin-top:50px;">notes</h2>
+notes on books and classes
+
+{% for post in site.posts %}
+    {% if post.notes %}  
+            <div class="item">
+                <a class="url" href="{% if post.externalLink %}{{ post.externalLink }}{% else %}{{ site.url }}{{ post.url }}{% endif %}"  style="text-decoration:none">
+                <h3 class="url" style="margin-bottom: 5px;"> {{ post.title | downcase }}</h3>
+                <p style="margin-top: 0px;">{{ post.subtitle | downcase }} </p>   
+                </a>
+            </div>  
+    {% endif %}
+{% endfor %}
+
+<h2 style="font-size: 2em; margin-top:50px;">posts</h2>
+{% for post in site.posts %}
+    {% if post.blog %}  
+            <div class="item">
+                <a class="url" href="{% if post.externalLink %}{{ post.externalLink }}{% else %}{{ site.url }}{{ post.url }}{% endif %}"  style="text-decoration:none">
+                <h3 class="url" style="margin-bottom: 5px;"> {{ post.title | downcase }}</h3>
+                <p style="margin-top: 0px;">{{ post.subtitle | downcase }} </p>   
+                </a>
+            </div>  
+    {% endif %}
+{% endfor %}
+

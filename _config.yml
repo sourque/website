@@ -1,0 +1,27 @@
+name: shane donahue
+bio: cyberstuff, usually
+
+external-image: false
+picture: assets/images/profile.png
+url: https://sourque.dev
+permalink: /:title/
+
+# twitter: mytwitter
+email: sdonahue@protonmail.com
+github: sourque
+linkedin: shane-donahue
+# stackoverflow: 7044681/mystackoverflow
+# medium: medium
+
+width: large
+projects: true
+about: true
+blog: true
+notes: true
+show-tags: true
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-admin
