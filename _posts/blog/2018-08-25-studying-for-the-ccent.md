@@ -1,13 +1,10 @@
----
-title: Studying for the CCENT
+--- title: Studying for the CCENT
 layout: post
 blog: true
 published: true
 ---
 
-TL;DR: Studying for the CCENT was fun, and knowing yourself allows you to study better.
-
-I have always been absolutely terrible at studying.
+TL;DR: Studying for the CCENT was fun, and picking up on what works for me has helped me accomplish my goals more effectively.  I have always been absolutely terrible at studying.
 
 I love the concept of knowing a lot. Picking up a hefty textbook on physics or math and flipping through it makes me wish I sat down and understood everything in the book. There's so much knowledge contained within these pages. I don't know what drives this compulsory infatuation with books and the idea of learning, but, as is paralleled in my studies, concepts are a far cry from practicality and actually _doing_ things.
 
