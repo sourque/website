@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+
+
+
+
+
+    
+    <link rel="stylesheet" href="/css/main.min.f9b46e3a4a677dd7510a249b19438a1799f77c971a2b5cb9996e81d2eb49d7f0.css" integrity="sha256-+bRuOkpnfddRCiSbGUOKF5n3fJcaK1y5mW6B0utJ1/A="/>
+
+
+    <title> 
+Graphed - sourque 
+ </title>
+</head>
+<body class="bg-black text-white flex flex-col h-screen">
+    
+    
+<main class="flex flex-grow md:container mx-auto grid grid-cols-1 lg:grid-cols-10 px-10 py-8 xl:px-28 2xl:px-54">
+
+        
+        <aside class="lg:sidebar lg:h-screen lg:sticky lg:top-12 col-span-2 pb-2">
+            <ul>
+                <li>
+                    <a class="wacky" href="/">Home</a>
+                </li>
+            </ul>
+
+            
+        </aside>
+
+        
+        <div class="main-content col-span-1 lg:col-span-8">
+            <h1>Graphed</h1>
+                
+                Category: <b>web</b>
+                
+                
+                
+
+                <blockquote>
+<p>I am building a blog, but I exposed the api for anyone interested in reading my posts.
+Site: <a href="http://graphed.ctf.cuctf.io:6200/graphql">http://graphed.ctf.cuctf.io:6200/graphql</a>.</p>
+</blockquote>
+<p>I hadn&rsquo;t heard of <strong>GraphQL</strong> before, but it looked like some kind of data storage-retrieval scheme and API.</p>
+<p>I tried using <code>nmap</code> and <code>gobuster</code> for a bit, but didn&rsquo;t find anything. This solidified my belief that the challenge was simply using the API in some fashion to retrieve the flag.</p>
+<p>I found a GraphQL payload on <a href="https://github.com/swisskyrepo/PayloadsAllTheThings">PayloadAllTheThings</a> that let me enumerate available types:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl --http0.9 http://graphed.ctf.cuctf.io:6200/graphql -d <span style="color:#e6db74">&#34;query={__schema{types{name,fields{name}}}}&#34;</span></code></pre></div>
+<p>Which gave:</p>
+<p><img src="../image-20201007010356354.png" alt="image-20201007010356354"></p>
+<p>From here, since the posts for all users were not directly available (we could only read from author <em>pop_eax</em>), it was basically a sure bet that there would be a second user with the flag as a post (other than two notes exposed through <code>coolNotes</code>).</p>
+<p>So, we begin at <code>allUsers</code> and follow the object types to get the posts from all users.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl --http0.9 http://graphed.ctf.cuctf.io:6200/graphql -d <span style="color:#e6db74">&#34;query={ allUsers { edges { node { notes { edges { node { title, body } } } } } } }&#34;</span></code></pre></div>
+<p>Returning the flag, for the blood:</p>
+<p><img src="../image-20201007010509231.png" alt="image-20201007010620262"></p>
+
+        </div>
+     </main>
+
+<footer class="footer py-1">
+    <div class="flex justify-center text-white py-1"></div>
+</footer>
+
+</body>

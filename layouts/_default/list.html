@@ -1,0 +1,51 @@
+{{ define "title" }}
+home - {{ .Site.Title }}
+{{ end }}
+{{ define "main" }}
+    <main class="container md:px-32 lg:px-54 2xl:px-68 flex-grow flex flex-wrap md:flex-nowrap mx-auto">
+
+        <!-- Main section
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+            <section class="flex-auto p-8">
+                <h1 class="marker-under">sourque</h1>
+
+                Hello! I enjoy learning about cyber security.
+
+                <br>
+                <div class="marker-left">
+                    <h2>blog</h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-2">
+                    {{ range ( where .Site.RegularPages "Section" "blog" ) }}
+                        {{ partial "post-item.html" . }}
+                    {{ end }}
+                    </div>
+                </div>
+
+                <div class="marker-left">
+                    <h2>projects</h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-2">
+                    {{ range ( where .Site.RegularPages "Section" "projects" ) }}
+                        {{ partial "post-item.html" . }}
+                    {{ end }}
+                    </div>
+                </div>
+
+                <div class="marker-left">
+                    <h2>writeups</h2>
+                    <div class="multi-level grid grid-cols-1 lg:grid-cols-2">
+                    {{ range ( where .Site.Sections "Section" "writeups" ) }}
+                        {{ range .FirstSection.Sections }}
+                            {{ partial "post-item-noclick.html" . }}
+                            {{ range .Pages }}
+                            <div class="col-span-1 lg:col-span-2">
+                                {{ partial "post-item-dashed.html" . }}
+                            </div>
+                            {{ end }}
+                        {{ end }}
+                    {{ end }}
+                    </div>
+                </div>
+                <br>
+            </section>
+     </main>
+{{ end }}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hivestorm 2020 on sourque</title>
+    <link>https://sourque.dev/writeups/hs20/</link>
+    <description>Recent content in Hivestorm 2020 on sourque</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://sourque.dev/writeups/hs20/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hivestorm Writeup</title>
+      <link>https://sourque.dev/writeups/hs20/comp/</link>
+      <pubDate>Sun, 18 Oct 2020 00:00:00 -0500</pubDate>
+      
+      <guid>https://sourque.dev/writeups/hs20/comp/</guid>
+      <description>Hivestorm is a collegiate-focused cyber defense competition. Teams compete by securing provided Windows and Linux based virtual machines – removing malware and other infections, correcting misconfigurations, mitigating vulnerabilities, disabling vulnerable services, and so on. Teams accumulate points for addressing each scored issue and must race against the clock to accumulate as many points as they can before time expires.
+ I was team captain of team171, DefSec Deadbeats for Hivestorm 2020.</description>
+    </item>
+    
+  </channel>
+</rss>

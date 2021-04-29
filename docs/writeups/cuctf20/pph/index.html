@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+
+
+
+
+
+    
+    <link rel="stylesheet" href="/css/main.min.f9b46e3a4a677dd7510a249b19438a1799f77c971a2b5cb9996e81d2eb49d7f0.css" integrity="sha256-+bRuOkpnfddRCiSbGUOKF5n3fJcaK1y5mW6B0utJ1/A="/>
+
+
+    <title> 
+PlanePivotHinge - sourque 
+ </title>
+</head>
+<body class="bg-black text-white flex flex-col h-screen">
+    
+    
+<main class="flex flex-grow md:container mx-auto grid grid-cols-1 lg:grid-cols-10 px-10 py-8 xl:px-28 2xl:px-54">
+
+        
+        <aside class="lg:sidebar lg:h-screen lg:sticky lg:top-12 col-span-2 pb-2">
+            <ul>
+                <li>
+                    <a class="wacky" href="/">Home</a>
+                </li>
+            </ul>
+
+            
+        </aside>
+
+        
+        <div class="main-content col-span-1 lg:col-span-8">
+            <h1>PlanePivotHinge</h1>
+                
+                Category: <b>web</b>
+                
+                
+                
+
+                <blockquote>
+<p>There are many types of joints in the human body. The benevolent author of some old code gave it a facelift to include the latest web tech. Now this app has all the joint types.
+Site: pivotplanehinge.ctf.cuctf.io:8079</p>
+</blockquote>
+<p>We&rsquo;re given a tastefully designed website that allows us to use WebSockets to send a string to the <code>/echo</code> endpoint on the web server.</p>
+<p><img src="../image-20201007013627896.png" alt="image-20201007013627896"></p>
+<p>The catch is that, when the text contains <code>cat flag.txt</code>, the web server returns an error, saying something about an <code>Origin</code> being not permitted or defined.</p>
+<p>Also, when connecting, the page displays the following data:</p>
+<p><img src="../image-20201007013847543.png" alt="image-20201007013847543"></p>
+<p>The <code>connectedHosts</code> item at the bottom, with <code>admin</code> seemingly connecting from Google&rsquo;s DNS server, made me think that we could just manipulate the edit the Origin and the jank Go code on the other side would give us the flag after checking the <code>Origin</code>.</p>
+<p>Unfortunately, that didn&rsquo;t work. However, when changing both the <code>Origin</code> and the <code>Host</code> field, we got our flag :)</p>
+<p><img src="../image-20201007014043543.png" alt="image-20201007014043543"></p>
+
+        </div>
+     </main>
+
+<footer class="footer py-1">
+    <div class="flex justify-center text-white py-1"></div>
+</footer>
+
+</body>

@@ -1,0 +1,15 @@
+<div class="wr-lt">
+   <a href="{{.Permalink}}"> {{ .Title }}
+   {{ if .Params.category }}
+       {{ if .Params.solves }}
+           {{ if .Params.points }}
+               ({{ .Params.category }}, {{ .Params.points }} points, {{.Params.solves }} solves)
+           {{ else }}
+               ({{ .Params.category }}, {{.Params.solves }} solves)
+           {{ end }}
+       {{ else }}
+           ({{ .Params.category }})
+       {{ end }}
+   {{ end }}
+    </a>
+</div> 

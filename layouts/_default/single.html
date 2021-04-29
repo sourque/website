@@ -1,0 +1,40 @@
+{{ define "title" }}
+{{ .Title }} - {{ .Site.Title }} 
+{{ end }}
+{{ define "main" }}
+<main class="flex flex-grow md:container mx-auto grid grid-cols-1 lg:grid-cols-10 px-10 py-8 xl:px-28 2xl:px-54">
+
+        <!-- Sidebar
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <aside class="lg:sidebar lg:h-screen lg:sticky lg:top-12 col-span-2 pb-2">
+            <ul>
+                <li>
+                    <a class="wacky" href="/">Home</a>
+                </li>
+            </ul>
+
+            {{ if gt .WordCount 500 }}
+            <br>
+            <b>{{ .Title }}</b>
+            <i>{{.TableOfContents}}</i>
+            {{ end }}
+        </aside>
+
+        <!-- Main section
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <div class="main-content col-span-1 lg:col-span-8">
+            <h1>{{ .Title }}</h1>
+                {{ if .Params.category }}
+                Category: <b>{{ .Params.category }}</b>
+                {{ end }}
+                {{ if .Params.points }}
+                Points: <b>{{ .Params.points }}</b>
+                {{ end }}
+                {{ if .Params.solves }}
+                Solves: <b>{{ .Params.solves }}</b>
+                {{ end }}
+
+                {{ .Content }}
+        </div>
+     </main>
+{{ end }}

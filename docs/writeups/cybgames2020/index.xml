@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MetaCTF CyberGames 2020 on sourque</title>
+    <link>https://sourque.dev/writeups/cybgames2020/</link>
+    <description>Recent content in MetaCTF CyberGames 2020 on sourque</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 24 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://sourque.dev/writeups/cybgames2020/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>I do it IN THE CLOUD</title>
+      <link>https://sourque.dev/writeups/cybgames2020/inthecloud/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sourque.dev/writeups/cybgames2020/inthecloud/</guid>
+      <description>Okay, okay, maybe coding in the cloud isn&amp;rsquo;t that much fun. But what about hacking in the cloud? How about when instead of a straightforward Windows/Linux box, you&amp;rsquo;re targeting a Platform-as-a-Service (PaaS) application running on Azure Functions? Fortunately (unfortunately?) for you, developers don&amp;rsquo;t magically write secure code in the cloud. With that in mind, see if you can find and exploit a fairly common web vulnerability in this app. Once you do, you can prove your level of access by finding the hardcoded admin password in the API code and use it to login and get the flag :)</description>
+    </item>
+    
+    <item>
+      <title>Joy With Tokens</title>
+      <link>https://sourque.dev/writeups/cybgames2020/joywithtokens/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sourque.dev/writeups/cybgames2020/joywithtokens/</guid>
+      <description>We&amp;rsquo;re trying out some fancy new security technologies on our new site! We&amp;rsquo;re excited to prove just how effective they are at keeping hackers like you out. Just to show you how secure we are, we invite you to try to take over the admin account. We&amp;rsquo;ll even give you the admin&amp;rsquo;s email: admin@joywithtokens.metaproblems.com. Good luck! You&amp;rsquo;ll need it!
+ Poking Around We&amp;rsquo;re given a site with the following features, once everything is explored:</description>
+    </item>
+    
+  </channel>
+</rss>

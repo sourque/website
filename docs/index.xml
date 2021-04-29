@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sourque</title>
+    <link>https://sourque.dev/</link>
+    <description>Recent content on sourque</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 10 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://sourque.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git-nuke</title>
+      <link>https://sourque.dev/blog/git-nuke/</link>
+      <pubDate>Wed, 10 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://sourque.dev/blog/git-nuke/</guid>
+      <description>Quick script to overwrite a git repo&amp;rsquo;s history, and push to remote. Obviously, git is not intended to be used like this. But, nobody can stop me.
+#!/bin/bash set -e MSG=&amp;#34;Update website&amp;#34; BRANCH=&amp;#34;main&amp;#34; REMOTE=$(cat .git/config | grep &amp;#34;url&amp;#34; | cut -d &amp;#34; &amp;#34; -f3) if [[ -z $REMOTE ]]; then echo &amp;#34;Not a valid git repo, or no remote configured.&amp;#34; exit 1 fi echo &amp;#34;REPO: $REMOTE&amp;#34; echo &amp;#34;Commit message: $MSG&amp;#34; echo &amp;#34;Branch: $BRANCH&amp;#34; read -p &amp;#34;Are you sure you want to nuke this repo?</description>
+    </item>
+    
+    <item>
+      <title>coordinate</title>
+      <link>https://sourque.dev/projects/coordinate/</link>
+      <pubDate>Mon, 15 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://sourque.dev/projects/coordinate/</guid>
+      <description>Go program to automatically ssh into a specified range of boxes with specified (sets of) creds. This is supposed to be a useful alternative to Metasploit RCs or Ansible, in the context of red teaming for competitions.
+You can run any scripts with it, and use the &amp;ldquo;preprocessor&amp;rdquo; options to control the program execution in ways that would otherwise be cumbersome (ex., run only one of the next three blocks).</description>
+    </item>
+    
+    <item>
+      <title>Hivestorm Writeup</title>
+      <link>https://sourque.dev/writeups/hs20/comp/</link>
+      <pubDate>Sun, 18 Oct 2020 00:00:00 -0500</pubDate>
+      
+      <guid>https://sourque.dev/writeups/hs20/comp/</guid>
+      <description>Hivestorm is a collegiate-focused cyber defense competition. Teams compete by securing provided Windows and Linux based virtual machines – removing malware and other infections, correcting misconfigurations, mitigating vulnerabilities, disabling vulnerable services, and so on. Teams accumulate points for addressing each scored issue and must race against the clock to accumulate as many points as they can before time expires.
+ I was team captain of team171, DefSec Deadbeats for Hivestorm 2020.</description>
+    </item>
+    
+    <item>
+      <title>Graphed</title>
+      <link>https://sourque.dev/writeups/cuctf20/graphed/</link>
+      <pubDate>Sat, 03 Oct 2020 00:00:00 -0500</pubDate>
+      
+      <guid>https://sourque.dev/writeups/cuctf20/graphed/</guid>
+      <description>I am building a blog, but I exposed the api for anyone interested in reading my posts. Site: http://graphed.ctf.cuctf.io:6200/graphql.
+ I hadn&amp;rsquo;t heard of GraphQL before, but it looked like some kind of data storage-retrieval scheme and API.
+I tried using nmap and gobuster for a bit, but didn&amp;rsquo;t find anything. This solidified my belief that the challenge was simply using the API in some fashion to retrieve the flag.</description>
+    </item>
+    
+    <item>
+      <title>PlanePivotHinge</title>
+      <link>https://sourque.dev/writeups/cuctf20/pph/</link>
+      <pubDate>Sat, 03 Oct 2020 00:00:00 -0500</pubDate>
+      
+      <guid>https://sourque.dev/writeups/cuctf20/pph/</guid>
+      <description>There are many types of joints in the human body. The benevolent author of some old code gave it a facelift to include the latest web tech. Now this app has all the joint types. Site: pivotplanehinge.ctf.cuctf.io:8079
+ We&amp;rsquo;re given a tastefully designed website that allows us to use WebSockets to send a string to the /echo endpoint on the web server.
+The catch is that, when the text contains cat flag.</description>
+    </item>
+    
+    <item>
+      <title>louis</title>
+      <link>https://sourque.dev/projects/louis/</link>
+      <pubDate>Thu, 01 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://sourque.dev/projects/louis/</guid>
+      <description>Linux EDR written in Golang and based on eBPF, work in progress.
+You can find it at https://github.com/sourque/louis.</description>
+    </item>
+    
+    <item>
+      <title>about</title>
+      <link>https://sourque.dev/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sourque.dev/about/</guid>
+      <description>Hello. I like to learn and do cyber security-related things.</description>
+    </item>
+    
+    <item>
+      <title>I do it IN THE CLOUD</title>
+      <link>https://sourque.dev/writeups/cybgames2020/inthecloud/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sourque.dev/writeups/cybgames2020/inthecloud/</guid>
+      <description>Okay, okay, maybe coding in the cloud isn&amp;rsquo;t that much fun. But what about hacking in the cloud? How about when instead of a straightforward Windows/Linux box, you&amp;rsquo;re targeting a Platform-as-a-Service (PaaS) application running on Azure Functions? Fortunately (unfortunately?) for you, developers don&amp;rsquo;t magically write secure code in the cloud. With that in mind, see if you can find and exploit a fairly common web vulnerability in this app. Once you do, you can prove your level of access by finding the hardcoded admin password in the API code and use it to login and get the flag :)</description>
+    </item>
+    
+    <item>
+      <title>Joy With Tokens</title>
+      <link>https://sourque.dev/writeups/cybgames2020/joywithtokens/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sourque.dev/writeups/cybgames2020/joywithtokens/</guid>
+      <description>We&amp;rsquo;re trying out some fancy new security technologies on our new site! We&amp;rsquo;re excited to prove just how effective they are at keeping hackers like you out. Just to show you how secure we are, we invite you to try to take over the admin account. We&amp;rsquo;ll even give you the admin&amp;rsquo;s email: admin@joywithtokens.metaproblems.com. Good luck! You&amp;rsquo;ll need it!
+ Poking Around We&amp;rsquo;re given a site with the following features, once everything is explored:</description>
+    </item>
+    
+    <item>
+      <title>Userland City</title>
+      <link>https://sourque.dev/writeups/htbq21/userlandcity/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sourque.dev/writeups/htbq21/userlandcity/</guid>
+      <description>You are part of a multinational law enforcement operation called &amp;ldquo;Takeover&amp;rdquo; that targets underground darknet markets, the new target is a referral only market called Userland City. After a string of ops intercepting traffic in TOR exit nodes, we managed to obtain a verified vendor&amp;rsquo;s account that goes by the name of lxkid. We&amp;rsquo;re ready for stage &amp;ldquo;Downfall&amp;rdquo;, Europol has provided us with key software components to capture cleartext credentials from all marketplace users, spyware to deliver through key accounts operating with downloadable deliveries, and help us remove the existing image database including the metadata removal tool.</description>
+    </item>
+    
+    <item>
+      <title>WAFfles Order</title>
+      <link>https://sourque.dev/writeups/htbq21/wafflesorder/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sourque.dev/writeups/htbq21/wafflesorder/</guid>
+      <description>Our WAFfles and ice scream are out of this world, come to our online WAFfles house and check out our super secure ordering system API!
+ Enumeration Browsing to the website, we are greeted with this aesthetically&amp;hellip; interesting&amp;hellip; page:
+We can input a table number, and send it off:
+For which the post request looks like:
+Source Code Review Nothing really interesting here. However! We are given the source code for the application, which means we&amp;rsquo;re in for some fun.</description>
+    </item>
+    
+  </channel>
+</rss>

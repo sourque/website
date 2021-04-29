@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+
+
+
+
+
+    
+    <link rel="stylesheet" href="/css/main.min.f9b46e3a4a677dd7510a249b19438a1799f77c971a2b5cb9996e81d2eb49d7f0.css" integrity="sha256-+bRuOkpnfddRCiSbGUOKF5n3fJcaK1y5mW6B0utJ1/A="/>
+
+
+    <title> 
+Hivestorm Writeup - sourque 
+ </title>
+</head>
+<body class="bg-black text-white flex flex-col h-screen">
+    
+    
+<main class="flex flex-grow md:container mx-auto grid grid-cols-1 lg:grid-cols-10 px-10 py-8 xl:px-28 2xl:px-54">
+
+        
+        <aside class="lg:sidebar lg:h-screen lg:sticky lg:top-12 col-span-2 pb-2">
+            <ul>
+                <li>
+                    <a class="wacky" href="/">Home</a>
+                </li>
+            </ul>
+
+            
+            <br>
+            <b>Hivestorm Writeup</b>
+            <i><nav id="TableOfContents">
+  <ul>
+    <li><a href="#time">Time</a></li>
+    <li><a href="#scripting">Scripting</a></li>
+    <li><a href="#ok-the-vulns">Ok, the Vulns</a></li>
+    <li><a href="#debian-9">Debian 9</a></li>
+    <li><a href="#ubuntu-1604">Ubuntu 16.04</a></li>
+    <li><a href="#windows-10">Windows 10</a></li>
+    <li><a href="#windows-2019">Windows 2019</a></li>
+    <li><a href="#windows-2016">Windows 2016</a></li>
+  </ul>
+</nav></i>
+            
+        </aside>
+
+        
+        <div class="main-content col-span-1 lg:col-span-8">
+            <h1>Hivestorm Writeup</h1>
+                
+                
+                
+
+                <blockquote>
+<p>Hivestorm is a collegiate-focused cyber defense competition. Teams compete by securing provided Windows and Linux based virtual machines – removing malware and other infections, correcting misconfigurations, mitigating vulnerabilities, disabling vulnerable services, and so on. Teams accumulate points for addressing each scored issue and must race against the clock to accumulate as many points as they can before time expires.</p>
+</blockquote>
+<p><img src="../writeupsallowed.png" alt="writeupsallowed"></p>
+<p>I was team captain of <code>team171</code>, <strong>DefSec Deadbeats</strong> for <strong>Hivestorm 2020</strong>. Here&rsquo;s the scoreboard from the end of the competition:</p>
+<p><img src="../scoreboard.png" alt="scoreboard"></p>
+<p>Huge thank you to UTSA&rsquo;s CIAS and their team members for running this competition! And of course thank you to my teammates for the cybering and four hours of harassment over Discord, and to the incredibly talented friends I&rsquo;ve made over the past few years, like Altoid, Paradox, and Anub1s.</p>
+<p>We got permission to post writeups online, so here we are. We won&rsquo;t be posting <code>ScoringReportScreenshots.zip</code>, but will go into  our methodology and a lot of the vulns you might&rsquo;ve seen. Hopefully this helps someone out. Our goal isn&rsquo;t necessarily to help someone beat us, but to help teams with no idea what to explore next gain a foothold.</p>
+<hr>
+<h1 id="categories">Categories</h1>
+<p>It really helps to have a rough classification of vulnerability categories. These are basically worthless on their own, but very helpful for finding new things to explore. Here are the ones I go by:</p>
+<ul>
+<li>Forensic Questions
+<ul>
+<li>These are the only guaranteed vulns (other than README requests) in the entire competition. So, they&rsquo;re very valuable. However, you need to make sure you don&rsquo;t spend too much time on them&ndash; low hanging fruit is worth much more in the end, and small things add up.</li>
+</ul>
+</li>
+<li>Users
+<ul>
+<li>Adding valid/README users</li>
+<li>Removing invalid/hidden/evil users</li>
+<li>Changing passwords</li>
+<li>Fixing groups</li>
+<li>Fixing <a href="https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/user-rights-assignment">URA</a> for Windows</li>
+</ul>
+</li>
+<li>User configurations
+<ul>
+<li>On Linux, this is probably <code>PAM</code> configurations</li>
+<li>On Windows, this is making sure accounts aren&rsquo;t locked out, expired, have a password that never expires, etc</li>
+</ul>
+</li>
+<li>Random fixes / Misc
+<ul>
+<li>These are things that don&rsquo;t really fit in any other category, for example, fixing <code>/etc/shadow</code> perms or removing a user shell for a system user.</li>
+<li>There are very few of these that are predictable. IMO the best way is to check important configuration files manually and to make sure you know what is normal, and spend a little bit of time at least manually looking through the filesystem</li>
+</ul>
+</li>
+<li>Standard Configurations
+<ul>
+<li>This is where you find the majority of your points</li>
+<li>Linux will be with <code>sysctl.conf</code>, <code>login.defs</code>, <code>lightdm.conf</code>, whatever other system configuration files are pertinent</li>
+<li>Windows will be random garbage in Local Security Policy <code>secpol.msc</code>
+<ul>
+<li>Hivestorm images aren&rsquo;t (yet) connected to a domain, so Active Directory hardening is kind of out of scope</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Magic Configurations
+<ul>
+<li>In the realm of the kernel mailing list participants and the GPO MVP Wizards, we sometimes find a really niche vulnerability that is just kind of bs. These are rare and should be celebrated.</li>
+</ul>
+</li>
+<li>Updates
+<ul>
+<li>If you don&rsquo;t update/install everything in the ReadMe, you&rsquo;re throwing away points. In the trash
+<ul>
+<li>@Nightbane recommends <a href="https://patchmypc.com/home-updater">https://patchmypc.com/home-updater</a> for Windows</li>
+</ul>
+</li>
+<li>Run updates and make sure they actually work (apt isn&rsquo;t backdoored, apt sources are fixed, no package holds&hellip;)</li>
+<li>Windows Update is literally the worst thing that&rsquo;s ever happened to me
+<ul>
+<li>Try WSUS if it&rsquo;s a local VM! If not, just start them after you run out of ideas and pray that your machine is usable within one or two epochs</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Standard mitigations
+<ul>
+<li>Enabled the firewall</li>
+<li>Enable Windows Defender</li>
+</ul>
+</li>
+<li>Software
+<ul>
+<li>Installing good software</li>
+<li>Starting good services</li>
+<li>Removing bad software/features</li>
+<li>Stopping/removing bad services</li>
+</ul>
+</li>
+<li>Backdoors
+<ul>
+<li>Backdoors are bad! Especially on images of this difficulty, if you don&rsquo;t find any backdoors on your image, you&rsquo;re probably missing one</li>
+<li>Could be a trojaned binary, fake binary (ex. copied netcat to something else), SetUID binary, etc
+<ul>
+<li>Check listening ports (<code>ss -plunt</code>) and <code>find / -perm -4000</code> (SUID/SGID) for Linux</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Service Hardening
+<ul>
+<li>Do you have a critical service? Do you have points for that service&rsquo;s configuration being improved or hardened? No? You&rsquo;re probably missing points!</li>
+<li>This is often low-hanging fruit that&rsquo;s not too hard to configure (ex. Look up <code>php hardening guide</code>)</li>
+</ul>
+</li>
+</ul>
+<p>It&rsquo;s also worth understanding what&rsquo;s in the realm of scoring and possibility. If it&rsquo;s merely a recommended setting and doesn&rsquo;t actually have any merit on real security (ex. move <code>/var/</code> to its own partition, or changing <code>/etc/shadow</code> to 000 from 640), it&rsquo;s a safe bet that it&rsquo;s not really worth exploring, at least for getting points. After a bit you should be able to smell what is worthless when reading guides online.</p>
+<p>Upgrading your operating system is always a bad idea in this competition (that is, upgrading to a new version, ex. <code>Ubuntu 16.04</code> to <code>Ubuntu 20.04</code>). Don&rsquo;t do that. Read the README.</p>
+<hr>
+<h2 id="time">Time</h2>
+<p>You only have four hours. That&rsquo;s not very much time! You can&rsquo;t automate users (thanks to whoever made the ReadMe a picture lol), but you should try to automate everything else. Scripts are a great idea. What&rsquo;s not a great idea is ripping things off the internet that you don&rsquo;t understand. I&rsquo;d say even if you don&rsquo;t know what you&rsquo;re doing, it&rsquo;s worth making your own script to learn <code>bash|powershell.exe</code>.</p>
+<p>Our gameplan for this competition was:</p>
+<ol>
+<li>Make fun of people complaining at @ciascompetitions in the Discord</li>
+<li>Listen to anime OSTs &amp;&amp; Get points</li>
+</ol>
+<p>If we put a bit more time into it, we would&rsquo;ve come up with</p>
+<ol>
+<li>Pregame by making fun of people in the Discord</li>
+<li>Forensic Questions for about an hour</li>
+<li>Run scripts</li>
+<li>Manually do things that the script didn&rsquo;t cover or didn&rsquo;t do correctly</li>
+<li>Manually scrounge and check obscure things and bad files</li>
+</ol>
+<h2 id="scripting">Scripting</h2>
+<p>I can practically smell y&rsquo;all looking at the graphs and being like &ldquo;LULW carried by a Windows script, look at that point jump, their Linux isn&rsquo;t even that good,&rdquo; and yeah that&rsquo;s mostly true. I would like to point to our lack of time spent on the Linux boxes (only about half the comp, and on and off at that) and to a bunch of mistakes (pls don&rsquo;t look at the resets and negative points on Ubuntu), but whatever, you live and you learn.</p>
+<p>Here&rsquo;s our graph for reference:</p>
+<p><img src="../graphs.png" alt="graphs"></p>
+<p>So, for Windows scripts, let me ask all the click jockeys out there, do you enjoy launching <code>secpol.msc</code> and clicking all the buttons to make the screen say what it says on your checklist? If you do, I&rsquo;d recommend a career in Java GUI development or Nessus pentesting. For others, once you know what one thing should be in Group Policy or the Local Security Policy, you can just put it in a script!</p>
+<p>I suppose I&rsquo;m hypocritical because I didn&rsquo;t know you could do this for a long time, but you can actually just import a configured GPO that sets a lot of stuff for you (see the <a href="https://public.cyber.mil/stigs/gpo/">DoD STIG GPOs</a>, and the Microsoft Security Compliance Toolkit). Worth looking into for any aspiring M$ experts.</p>
+<p>Linux scripts are cool, but they&rsquo;re pretty hard to write and there&rsquo;s a lot more thought required on behalf of the operator. Still worth writing one unless using a pager makes you really happy.</p>
+<p>If you need more sauce/juice for either of these, you can always look at the DoD STIGs and the CIS benchmarks.</p>
+<p>Keep in mind to always adhere to the rules of the competition you&rsquo;re competing in. If you happen to be a high school or middle school CyberPatriot competitor reading this, using scripts you&rsquo;ve written at Nationals is prohibited (at least at the time of writing), so you can&rsquo;t just become a scriptbot and mail it in. I suppose you could just be a braindead script slinger for Hivestorm, but it&rsquo;s not a good idea. And for both comps, diversifying your toolkit with free and open source tools is a good idea.</p>
+<hr>
+<h2 id="ok-the-vulns">Ok, the Vulns</h2>
+<p>Let&rsquo;s take a look at some of the actual vulns for the images.</p>
+<h2 id="debian-9">Debian 9</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Forensic Question <span style="color:#ae81ff">3</span> correct</code></pre></div>
+<p>Not too much to say for these. The actual forensic questions for Debian 9 were really tough, we only got #3 before moving on. That one was a simple &ldquo;what&rsquo;s the netcat backdoor&rdquo;, which you can find by looking at <code>ss -plunt</code> and seeing which listening ports are irregular (and trying to connect to it with <code>netcat</code> to see what it actually is). I believe that port was <code>5102</code> as some binary called <code>at-spi2-core</code>, which was of course actually <code>netcat-traditional</code>.  Once you find it and get points, make sure to remove it. :p</p>
+<blockquote>
+<p>Note: If you put your answer in the Forensic Question file, and it says it&rsquo;s not right, and you didn&rsquo;t mess with the file or the scoring engine&hellip; the engine is right. Try other stuff.</p>
+</blockquote>
+<p>As for the other FQs, it&rsquo;s hard to take advice from someone who didn&rsquo;t solve them, but I would say spend a lot of time doing CTFs in general, because often Hivestorm FQs are very similar to common challenges (ex. What&rsquo;s the hidden message?).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Removed unauthorized user minaros
+Removed hidden user amurty
+User jmiller is not an administrator</code></pre></div>
+<p>Audit the users. Not too much to say here either. The users in the ReadMe are the only users that should be on the system, and if they&rsquo;re in the ReadMe and not on the system, then add them. &ldquo;Hidden&rdquo; users are typically those with UIDs (User IDs) of under <code>1000</code>. Alas, I am unaffected because my method of editing users is <code>vim /etc/passwd</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">A minimum password length is required
+Extra dictionary based password strength checks enabled</code></pre></div>
+<p>These are the standard <code>/etc/pam.d/common-auth</code> and <code>/etc/pam.d/common-password</code> configurations.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Insecure permissions on shadow file fixed
+Firewall protection has been enabled</code></pre></div>
+<p>Hey look! Misc things! Side note: don&rsquo;t let everyone read your password hashes.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">IPv4 TCP SYN cookies have been enabled
+Ignore bogus ICMP errors enabled
+Logging of martian packets enabled</code></pre></div>
+<p>Sometimes when you copy and paste enough things from the internet into your <code>/etc/sysctl.conf</code>, you get points.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">IRC daemon has been disabled or removed
+Minetest service has been disabled or removed</code></pre></div>
+<p>There are probably a lot of bad/extraneous/redundant/unauthorized services running. For example, haha funny meme run minecraft on the VM, but actually, remove it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Apache has been updated
+PHP has been updated</code></pre></div>
+<p>Free points! Yay! <code>apt update &amp;&amp; apt full-upgrade</code> You need to also make sure your <code>/etc/apt/sources.list</code> and all the other lists and configs in <code>/etc/apt</code> are configured correctly, and that everything you need in the ReadMe is installed (for all boxes).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Prohibited software Nmap removed
+Prohibited software john the ripper removed
+Removed netcat backdoor</code></pre></div>
+<p>This is the bad package land. In the ReadMe, it says no hacking tools or games, so&hellip; remove them. If they left the apt log or Ubuntu Software Center history on the image, read through that real good. Otherwise just look through every package installed haha.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Firefox warns when sites try to install add-ons
+SSH root login has been disabled
+PHP does not display errors
+Apache server tokens set to least
+Apache trace requests disabled</code></pre></div>
+<p>Here&rsquo;s where the aforementioned service hardening vulns live. SSH <code>PermitRootLogin</code> is a classic. Since this was a LAMP stack, you also need to worry about hardening <code>Apache2</code> (<code>/etc/apache2/apache2.conf</code> and related files) and <code>PHP</code> (<code>/etc/apache2/whatever/php.ini</code>). I&rsquo;ll also consider Firefox a service&hellip; I guess. If we managed our time better, we would&rsquo;ve also worked on hardening  <code>Dovecot</code>/<code>Exim4</code>/<code>Roundcube</code>.</p>
+<hr>
+<h2 id="ubuntu-1604">Ubuntu 16.04</h2>
+<p>Starting from the top&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Forensic Question <span style="color:#ae81ff">1</span> correct
+Forensic Question <span style="color:#ae81ff">3</span> correct</code></pre></div>
+<p>If you answer the forensic questions and ask nicely, the scoring engine might bestow some points upon you. The first FQ was finding a file in a pcap (install Wireshark and just export the file), the second FQ was a uuencoded 7zip file (we didn&rsquo;t actually solve this one in time lol, forgot about it until the last 5 mins), and the third I forgot.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Removed unauthorized user mkoh
+Removed unauthorized user leelee
+Removed hidden user cortazar
+User jmiller is not an administrator
+User avolovodov is not an administrator</code></pre></div>
+<p>Remove bad users! Make sure admins are actually admins!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Disabled password login <span style="color:#66d9ef">for</span> user bin
+User nagata has a minimum password age
+A default maximum password age is set
+An account lockout policy is configured
+Greeter does not enumerate user accounts</code></pre></div>
+<p>Here are some interesting ones, there&rsquo;s a misc one (remove login shell for system users), and a very jank one (<code>passwd</code> or <code>chage</code> or manually edit <code>/etc/shadow</code> to set a password expiration), then standard configurations for <code>PAM</code> and <code>lightdm.conf</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Ignore broadcast ICMP echo request enabled
+IPv4 accept ICMP redirects disabled</code></pre></div>
+<p>Classic <code>sysctl.conf</code> points, praise up.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">FTP service has been disabled or removed
+POP3 service has been disabled or removed
+SMTP service has been disabled or removed</code></pre></div>
+<p>Don&rsquo;t be tripped up by which boxes have which critical services. Debian 9 had <code>POP3</code> as a critical service, but this one definitely did not.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Sudo has been updated
+Nginx has been updated
+PHP has been updated
+LibreOffice has been updated
+Thunderbird has been updated
+Prohibited software ophcrack removed</code></pre></div>
+<p>:pray: We rejoice today, for we have been blessed by the lörds of <code>apt</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">PHP does not display errors</code></pre></div>
+<p>PHP is part of a critical service &ndash;&gt; <code>php.ini</code> is points.</p>
+<hr>
+<h2 id="windows-10">Windows 10</h2>
+<p>Welcome to Windows!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Forensic Question <span style="color:#ae81ff">1</span> correct
+Forensic Question <span style="color:#ae81ff">2</span> correct
+Forensic Question <span style="color:#ae81ff">3</span> correct</code></pre></div>
+<p>These FQs were fairly standard, there was one tough one about finding the username for a deleted user. Stack Overflow the rescue, there was an obscure registry path that contained user information per SID, and happened to include the home path (and thus username).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Removed unauthorized user gabriel
+Removed unauthorized user strickland
+A sufficient password history is being kept
+A secure account lockout duration exists</code></pre></div>
+<p>For Windows, the equivalent of Linux&rsquo;s <code>PAM</code> is the Local Security Policy settings for Passwords and Accounts.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Limit local use of blank passwords to console only <span style="color:#f92672">[</span>enabled<span style="color:#f92672">]</span>
+Digitally encrypt or sign secure channel data <span style="color:#f92672">(</span>always<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>enabled<span style="color:#f92672">]</span></code></pre></div>
+<p>Here we have the juicy and ever-so-verbose Local Security Policy Security Options.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Firewall protection has been enabled
+Antivirus protection has been enabled</code></pre></div>
+<p>Windows is really nice for these type of vulns, because there&rsquo;s usually some big red flashing button (for <code>wf.msc</code> and Defender at least) where all you need to do is click it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Windows Update service is enabled
+Simple TCP/IP Services has been stopped and disabled</code></pre></div>
+<p>Service management. Good ones on, bad ones off.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Firefox automatically checks <span style="color:#66d9ef">for</span> updates
+Thunderbird has been updated
+Krita has been updated</code></pre></div>
+<p>Make sure to read the ReadMe and do the things they say. Also, going through the Firefox settings is a good idea.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Removed prohibited MP3 files
+Removed Home Web Server
+Removed WebDiscover browser
+Removed Actual Keylogger</code></pre></div>
+<p>Look for standalone binaries, features, media files, and installed programs that shouldn&rsquo;t be there.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Internet Explorer 8+ SmartScreen Filter <span style="color:#f92672">[</span>enabled<span style="color:#f92672">]</span>
+Firefox pop-up blocker enabled</code></pre></div>
+<p>Other misc security features: turn smartscreen on, make sure Firefox doesn&rsquo;t let the popups overwhelm poor Debby in HR.</p>
+<hr>
+<h2 id="windows-2019">Windows 2019</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Forensic Question <span style="color:#ae81ff">1</span> correct
+Forensic Question <span style="color:#ae81ff">3</span> correct</code></pre></div>
+<p>Forensic Question 1 for 2019 was about finding a banned user in the MediaWiki instance. A quick lookup would show that you can navigate to the BlockList and related pages manually pretty easily, because Dwayne knows I can&rsquo;t read anything with those stylesheets. Forensic Question 2 was really tough and we didn&rsquo;t get it, asking the competitor which DLL was run by <code>svchost.exe</code> for the TaskManager service. Apparently it wasn&rsquo;t the one right after it as an argument or the bunch on Process Explorer, so idk. Question 3 was finding which port a program was listening on, which is easy with Sysinternals TcpView, netstat, or the Task Manager.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Guest account is not enabled
+Removed unauthorized user dharari
+Removed unauthorized user leelee
+A secure maximum password age exists
+A secure minimum password age exists
+A secure account lockout observation window exists</code></pre></div>
+<p>User management and secpol!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Audit Logoff <span style="color:#f92672">[</span>Success<span style="color:#f92672">]</span></code></pre></div>
+<p>There are also some auditing settings in the Local Security Policy / Group Policy. Auditing things is probably better than not.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Prevent users from installing printer drivers <span style="color:#f92672">[</span>enabled<span style="color:#f92672">]</span>
+Restrict CD-ROM access to locally logged-on user only <span style="color:#f92672">[</span>enabled<span style="color:#f92672">]</span>
+Microsoft network client: Digitally sign communications <span style="color:#f92672">(</span>always<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>enabled<span style="color:#f92672">]</span>
+Allow system to be shut down without having to log on <span style="color:#f92672">[</span>disabled<span style="color:#f92672">]</span></code></pre></div>
+<p>More treasures from our benevolent security policy.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">File sharing disabled <span style="color:#66d9ef">for</span> C drive</code></pre></div>
+<p>You can view active SMB shares from <code>fsmgmt.msc</code>.  Some should be there by default, the others&hellip; shouldn&rsquo;t. Remove the bad shares, but also make sure to not remove the authorized work shares haha.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">SNMP service has been stopped and disabled
+Microsoft FTP service has stopped and disabled</code></pre></div>
+<p>Services.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Adobe Reader DC has been updated
+FileZilla Client has been updated
+Visual Studio Code has been updated
+Removed Plex Media Server
+Removed AnyDesk
+Removed CleanMyPC
+Removed Nmap
+Removed Tini backdoor</code></pre></div>
+<p>Update the ReadMe programs and remove the bad programs like the good little sysadmin you are.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">RDP connection encryption level has been set to high
+Require secure RPC communication</code></pre></div>
+<p>RDP is a critical service, therefore hardening it is probably worthwhile. This is usually a combination of Group Policy and just standard menus you see normally.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Internet Explorer Enhanced Security Configuration is enabled
+Firefox warns when sites try to install add-ons
+Firefox display warning on known malware sites <span style="color:#f92672">[</span>all users<span style="color:#f92672">]</span>
+IIS detailed errors disabled</code></pre></div>
+<p>Other service/web browser hardening.</p>
+<hr>
+<h2 id="windows-2016">Windows 2016</h2>
+<p>We&rsquo;ve discussed everything pretty much, so here&rsquo;s just a list for 2016. Everything here <em>should</em> make sense hopefully and fall into a predefined category. If it doesn&rsquo;t, quickly look up the vulnerability text and you should find some good articles or MS help posts.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Forensic Question <span style="color:#ae81ff">1</span> correct
+Forensic Question <span style="color:#ae81ff">2</span> correct
+Forensic Question <span style="color:#ae81ff">3</span> correct
+Removed unauthorized user cortazar
+Removed unauthorized user cwei
+A secure minimum password length is required
+A secure lockout threshold exists
+Deny access to this computer from the network includes Guest
+Recovery console: Allow automatic administrative logon <span style="color:#f92672">[</span>disabled<span style="color:#f92672">]</span>
+Microsoft network server: Digitally sign communications <span style="color:#f92672">(</span>always<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>enabled<span style="color:#f92672">]</span>
+Do not allow anonymous enumeration of SAM accounts and shares <span style="color:#f92672">[</span>enabled<span style="color:#f92672">]</span>
+SNMP Trap service has been stopped and disabled
+Net.Tcp Port Sharing Service has been stopped and disabled
+PeaZip has been updated
+Removed Tetris
+Removed Driver Booster
+Removed netcat backdoor
+SMB 1.x removed or disabled
+Do not allow supported Plug and Play device redirection
+Internet Properties: Enable Enhanced Protected Mode <span style="color:#f92672">[</span>Enabled<span style="color:#f92672">]</span>
+Firefox displays warning on known malware sites</code></pre></div>
+<h1 id="wrap-up">Wrap up</h1>
+<p>And that&rsquo;s it for our partial Hivestorm 2020 writeup. Thanks again to UTSA&rsquo;s CIAS for running the competition. See you guys next time.</p>
+
+        </div>
+     </main>
+
+<footer class="footer py-1">
+    <div class="flex justify-center text-white py-1"></div>
+</footer>
+
+</body>

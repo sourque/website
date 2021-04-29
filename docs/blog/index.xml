@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs on sourque</title>
+    <link>https://sourque.dev/blog/</link>
+    <description>Recent content in Blogs on sourque</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 10 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://sourque.dev/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git-nuke</title>
+      <link>https://sourque.dev/blog/git-nuke/</link>
+      <pubDate>Wed, 10 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://sourque.dev/blog/git-nuke/</guid>
+      <description>Quick script to overwrite a git repo&amp;rsquo;s history, and push to remote. Obviously, git is not intended to be used like this. But, nobody can stop me.
+#!/bin/bash set -e MSG=&amp;#34;Update website&amp;#34; BRANCH=&amp;#34;main&amp;#34; REMOTE=$(cat .git/config | grep &amp;#34;url&amp;#34; | cut -d &amp;#34; &amp;#34; -f3) if [[ -z $REMOTE ]]; then echo &amp;#34;Not a valid git repo, or no remote configured.&amp;#34; exit 1 fi echo &amp;#34;REPO: $REMOTE&amp;#34; echo &amp;#34;Commit message: $MSG&amp;#34; echo &amp;#34;Branch: $BRANCH&amp;#34; read -p &amp;#34;Are you sure you want to nuke this repo?</description>
+    </item>
+    
+  </channel>
+</rss>

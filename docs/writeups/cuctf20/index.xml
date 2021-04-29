@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CUCTF 2020 on sourque</title>
+    <link>https://sourque.dev/writeups/cuctf20/</link>
+    <description>Recent content in CUCTF 2020 on sourque</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 03 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://sourque.dev/writeups/cuctf20/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Graphed</title>
+      <link>https://sourque.dev/writeups/cuctf20/graphed/</link>
+      <pubDate>Sat, 03 Oct 2020 00:00:00 -0500</pubDate>
+      
+      <guid>https://sourque.dev/writeups/cuctf20/graphed/</guid>
+      <description>I am building a blog, but I exposed the api for anyone interested in reading my posts. Site: http://graphed.ctf.cuctf.io:6200/graphql.
+ I hadn&amp;rsquo;t heard of GraphQL before, but it looked like some kind of data storage-retrieval scheme and API.
+I tried using nmap and gobuster for a bit, but didn&amp;rsquo;t find anything. This solidified my belief that the challenge was simply using the API in some fashion to retrieve the flag.</description>
+    </item>
+    
+    <item>
+      <title>PlanePivotHinge</title>
+      <link>https://sourque.dev/writeups/cuctf20/pph/</link>
+      <pubDate>Sat, 03 Oct 2020 00:00:00 -0500</pubDate>
+      
+      <guid>https://sourque.dev/writeups/cuctf20/pph/</guid>
+      <description>There are many types of joints in the human body. The benevolent author of some old code gave it a facelift to include the latest web tech. Now this app has all the joint types. Site: pivotplanehinge.ctf.cuctf.io:8079
+ We&amp;rsquo;re given a tastefully designed website that allows us to use WebSockets to send a string to the /echo endpoint on the web server.
+The catch is that, when the text contains cat flag.</description>
+    </item>
+    
+  </channel>
+</rss>

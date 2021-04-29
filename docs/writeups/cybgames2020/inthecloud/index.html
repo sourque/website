@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+
+
+
+
+
+    
+    <link rel="stylesheet" href="/css/main.min.f9b46e3a4a677dd7510a249b19438a1799f77c971a2b5cb9996e81d2eb49d7f0.css" integrity="sha256-+bRuOkpnfddRCiSbGUOKF5n3fJcaK1y5mW6B0utJ1/A="/>
+
+
+    <title> 
+I do it IN THE CLOUD - sourque 
+ </title>
+</head>
+<body class="bg-black text-white flex flex-col h-screen">
+    
+    
+<main class="flex flex-grow md:container mx-auto grid grid-cols-1 lg:grid-cols-10 px-10 py-8 xl:px-28 2xl:px-54">
+
+        
+        <aside class="lg:sidebar lg:h-screen lg:sticky lg:top-12 col-span-2 pb-2">
+            <ul>
+                <li>
+                    <a class="wacky" href="/">Home</a>
+                </li>
+            </ul>
+
+            
+        </aside>
+
+        
+        <div class="main-content col-span-1 lg:col-span-8">
+            <h1>I do it IN THE CLOUD</h1>
+                
+                Category: <b>web</b>
+                
+                
+                
+
+                <blockquote>
+<p>Okay, okay, maybe coding in the cloud isn&rsquo;t that much fun. But what about hacking in the cloud? How about when instead of a straightforward Windows/Linux box, you&rsquo;re targeting a Platform-as-a-Service (PaaS) application running on Azure Functions? Fortunately (unfortunately?) for you, developers don&rsquo;t magically write secure code in the cloud. With that in mind, see if you can find and exploit a fairly common web vulnerability in this app. Once you do, you can prove your level of access by finding the hardcoded admin password in the API code and use it to login and get the flag :)</p>
+</blockquote>
+<p>So this one was the least-solved web challenge for this competition, which really surprised me, since it seemed fairly straight forward. Reading the description, <code>fairly common web vulnerability</code> + reading <code>harcoded admin password</code> smells like LFI to me.</p>
+<p>Taking a look at the app, we see something that looks like LFI:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/api/participants/profile-pictures?img<span style="color:#f92672">=</span>person-cyan.png</code></pre></div>
+<p>Is the <code>img</code> parameter vulnerable? Probably. Trying to navigate to <code>../../../../../../etc/passwd</code> or <code>/etc/passwd</code> fails (returns 500 error), but re-reading the description, we see it&rsquo;s running on Azure Functions&hellip; So it&rsquo;s Windows and everything sucks. The hint says &ldquo;all good projects have a README&rdquo;, though, so that&rsquo;s a good file to try including.</p>
+<p><img src="../image-20201025205756407.png" alt="image-20201025205756407"></p>
+<p>Hey there we go! Downloading that file we see they lay out the file structure for us.</p>
+<p><img src="../image-20201025205921009.png" alt="image-20201025205921009"></p>
+<p><code>GetFlag</code> looks like something I&rsquo;d be interested in. I tried getting <code>admin.html</code> to see the hardcoded password before I realized that makes no sense (since it&rsquo;d be client side anyway). So a few guesses and searches later, we grab <code>run.csx</code> (which was storing environmental/secret variables or something) for the <code>GetFlag</code> folder:</p>
+<p><img src="../image-20201025210240871.png" alt="image-20201025210240871"></p>
+<p>Finding the hardcoded password:</p>
+<p><img src="../image-20201025210251036.png" alt="image-20201025210251036"></p>
+<p>And grabbing the flag :)</p>
+<p><img src="../image-20201025210313569.png" alt="image-20201025210313569"></p>
+
+        </div>
+     </main>
+
+<footer class="footer py-1">
+    <div class="flex justify-center text-white py-1"></div>
+</footer>
+
+</body>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on sourque</title>
+    <link>https://sourque.dev/projects/</link>
+    <description>Recent content in Projects on sourque</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://sourque.dev/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>coordinate</title>
+      <link>https://sourque.dev/projects/coordinate/</link>
+      <pubDate>Mon, 15 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://sourque.dev/projects/coordinate/</guid>
+      <description>Go program to automatically ssh into a specified range of boxes with specified (sets of) creds. This is supposed to be a useful alternative to Metasploit RCs or Ansible, in the context of red teaming for competitions.
+You can run any scripts with it, and use the &amp;ldquo;preprocessor&amp;rdquo; options to control the program execution in ways that would otherwise be cumbersome (ex., run only one of the next three blocks).</description>
+    </item>
+    
+    <item>
+      <title>louis</title>
+      <link>https://sourque.dev/projects/louis/</link>
+      <pubDate>Thu, 01 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://sourque.dev/projects/louis/</guid>
+      <description>Linux EDR written in Golang and based on eBPF, work in progress.
+You can find it at https://github.com/sourque/louis.</description>
+    </item>
+    
+  </channel>
+</rss>

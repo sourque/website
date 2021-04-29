@@ -1,0 +1,206 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+    /* Standard element styles */
+
+    /* Starry night - modified from https://projects.verou.me/css3patterns/#starry-night */
+    body {
+        @apply text-lg;
+        background-color: black; 
+        background-image: radial-gradient(white, rgba(255, 255, 255, 0.2) 2px, transparent 4px), radial-gradient(white, rgba(255, 255, 255, 0.15) 1px, transparent 3px), radial-gradient(white, rgba(255, 255, 255, 0.1) 2px, transparent 4px), radial-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1) 2px, transparent 3px);
+        background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px; 
+        background-position: 0px 0px, 40px 60px, 130px 270px, 70px 100px;
+    }
+
+    img {
+        @apply pt-1 pb-2 mx-auto;
+        width: auto;
+        max-width: 100%;
+        min-width: 100px;
+    }
+
+    h1 {
+        @apply pt-4 pb-2 text-3xl font-bold;
+    }
+
+    h2 {
+        @apply pt-4 text-2xl font-bold;
+    }
+
+    p {
+        @apply py-2;
+    }
+
+    p code {
+        @apply font-bold;
+    }
+
+    .wacky {
+        @apply px-1 py-0.5 rounded;
+        background-image:
+            linear-gradient(
+                to right,
+                rgb(10, 61, 213), 
+                rgb(106, 3, 100)
+            );
+    }
+
+    .sidebar {
+        @apply mt-4;
+    }
+
+    #TableOfContents a::before {
+        @apply text-red;
+        content: "# ";
+    }
+
+    .main-content ul {
+        @apply list-disc list-inside ml-4;
+    }
+
+    .main-content ol {
+        @apply list-decimal list-inside ml-4;
+    }
+
+
+    .footnotes {
+        @apply text-base;
+    }
+
+    .footnotes ol {
+        @apply list-outside ml-6;
+    }
+
+    .main-content a {
+        @apply px-1 py-0.5 rounded italic;
+        background-image:
+            linear-gradient(
+                to right,
+                rgb(10, 61, 213), 
+                rgb(106, 3, 100)
+            );
+    }
+
+    .highlight {
+        @apply py-4 rounded;
+    }
+
+
+    div.highlight {
+        max-width: 100%;
+    }
+
+    div.highlight pre {
+        @apply p-6 rounded;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .highlight div, .highlight table {
+        @apply rounded;
+    }
+
+    hr {
+        @apply py-2 mt-4;
+    }
+
+    blockquote {
+        @apply marker-block mt-2 mb-4;
+    }
+
+    /* Custom classes */
+    .multi-level div.link-text {
+        @apply mt-1; 
+    }
+    .marker-left {
+        position: relative;
+    }
+    .marker-block {
+        @apply ml-6;
+        position: relative;
+    }
+
+    .marker-under::after {
+        content: "";
+        position: absolute;
+        display: block;
+        transform: translateY(-100%) translateX(10%);
+        height: 0.8rem;
+        width: 5em;
+        background-image:
+            linear-gradient(
+                to right,
+                rgb(10, 61, 213), 
+                rgb(106, 3, 100)
+            );
+        z-index: -1;
+    }
+
+    .marker-left::after {
+        content: "";
+        position: absolute;
+        display: block;
+        top: 3.3em;
+        bottom: 0;
+        left: 0;
+        width: 0.8em;
+        padding-top: 0.1rem;
+        background-image:
+        linear-gradient(
+            to bottom,
+            rgb(10, 61, 213), 
+            rgb(106, 3, 100)
+        );
+        z-index: -1;
+    }
+
+    .marker-left .link-text:nth-child(1) {
+        @apply mt-2;
+    }
+
+    .marker-left .link-text {
+        @apply ml-6 pt-1 mt-0;
+    }
+
+    .marker-left .date-text {
+        @apply ml-6 pt-2 italic;
+    }
+
+    .marker-left .wr-lt {
+        @apply ml-10 italic;
+    }
+
+    .marker-block::after {
+        content: "";
+        position: absolute;
+        display: block;
+        bottom: 0;
+        left: 0;
+        height: 98%;
+        width: 0.8em;
+        padding-top: 0.1rem;
+        background-image:
+        linear-gradient(
+            to bottom,
+            rgb(10, 61, 213), 
+            rgb(106, 3, 100)
+        );
+        z-index: -1;
+    }
+
+    .marker-block p {
+        @apply ml-6 italic;    
+    }
+
+    .footer {
+        background-image:
+        linear-gradient(
+            to right,
+            rgb(10, 61, 213), 
+            rgb(106, 3, 100)
+        );
+    }
+}

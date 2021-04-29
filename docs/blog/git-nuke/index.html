@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+
+
+
+
+
+    
+    <link rel="stylesheet" href="/css/main.min.f9b46e3a4a677dd7510a249b19438a1799f77c971a2b5cb9996e81d2eb49d7f0.css" integrity="sha256-+bRuOkpnfddRCiSbGUOKF5n3fJcaK1y5mW6B0utJ1/A="/>
+
+
+    <title> 
+git-nuke - sourque 
+ </title>
+</head>
+<body class="bg-black text-white flex flex-col h-screen">
+    
+    
+<main class="flex flex-grow md:container mx-auto grid grid-cols-1 lg:grid-cols-10 px-10 py-8 xl:px-28 2xl:px-54">
+
+        
+        <aside class="lg:sidebar lg:h-screen lg:sticky lg:top-12 col-span-2 pb-2">
+            <ul>
+                <li>
+                    <a class="wacky" href="/">Home</a>
+                </li>
+            </ul>
+
+            
+        </aside>
+
+        
+        <div class="main-content col-span-1 lg:col-span-8">
+            <h1>git-nuke</h1>
+                
+                
+                
+
+                <p>Quick script to overwrite a <code>git</code> repo&rsquo;s history, and push to remote. Obviously, <code>git</code> is not intended to be used like this. But, nobody can stop me.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>set -e
+
+MSG<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Update website&#34;</span>
+BRANCH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;main&#34;</span>
+
+REMOTE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>cat .git/config | grep <span style="color:#e6db74">&#34;url&#34;</span> | cut -d <span style="color:#e6db74">&#34; &#34;</span> -f3<span style="color:#66d9ef">)</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> -z $REMOTE <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+    echo <span style="color:#e6db74">&#34;Not a valid git repo, or no remote configured.&#34;</span>
+    exit <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">fi</span>
+
+echo <span style="color:#e6db74">&#34;REPO: </span>$REMOTE<span style="color:#e6db74">&#34;</span>
+echo <span style="color:#e6db74">&#34;Commit message: </span>$MSG<span style="color:#e6db74">&#34;</span>
+echo <span style="color:#e6db74">&#34;Branch: </span>$BRANCH<span style="color:#e6db74">&#34;</span>
+
+read -p <span style="color:#e6db74">&#34;Are you sure you want to nuke this repo? (y/N)&#34;</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> $REPLY <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;y&#34;</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+    echo <span style="color:#e6db74">&#34;Removing .git...&#34;</span>
+    rm -rf .git
+    echo <span style="color:#e6db74">&#34;Initializing repo...&#34;</span>
+    git init
+    git add -A
+    git commit -m <span style="color:#e6db74">&#34;</span>$MSG<span style="color:#e6db74">&#34;</span>
+    git branch -m $BRANCH
+    echo <span style="color:#e6db74">&#34;Pushing...&#34;</span>
+    git remote add origin $REMOTE
+    git push -u --force origin $BRANCH
+<span style="color:#66d9ef">else</span>
+    echo <span style="color:#e6db74">&#34;Not nuking.&#34;</span>
+<span style="color:#66d9ef">fi</span>
+</code></pre></div>
+        </div>
+     </main>
+
+<footer class="footer py-1">
+    <div class="flex justify-center text-white py-1"></div>
+</footer>
+
+</body>

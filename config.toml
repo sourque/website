@@ -1,0 +1,4 @@
+baseURL = "https://sourque.dev/"
+languageCode = "en-us"
+title = "sourque"
+publishDir = "docs"

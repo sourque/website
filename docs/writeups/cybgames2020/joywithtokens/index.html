@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+
+
+
+
+
+    
+    <link rel="stylesheet" href="/css/main.min.f9b46e3a4a677dd7510a249b19438a1799f77c971a2b5cb9996e81d2eb49d7f0.css" integrity="sha256-+bRuOkpnfddRCiSbGUOKF5n3fJcaK1y5mW6B0utJ1/A="/>
+
+
+    <title> 
+Joy With Tokens - sourque 
+ </title>
+</head>
+<body class="bg-black text-white flex flex-col h-screen">
+    
+    
+<main class="flex flex-grow md:container mx-auto grid grid-cols-1 lg:grid-cols-10 px-10 py-8 xl:px-28 2xl:px-54">
+
+        
+        <aside class="lg:sidebar lg:h-screen lg:sticky lg:top-12 col-span-2 pb-2">
+            <ul>
+                <li>
+                    <a class="wacky" href="/">Home</a>
+                </li>
+            </ul>
+
+            
+            <br>
+            <b>Joy With Tokens</b>
+            <i><nav id="TableOfContents">
+  <ul>
+    <li><a href="#poking-around">Poking Around</a></li>
+    <li><a href="#getting-token">Getting Token</a></li>
+    <li><a href="#generating-payload">Generating Payload</a></li>
+    <li><a href="#exploitation">Exploitation</a></li>
+  </ul>
+</nav></i>
+            
+        </aside>
+
+        
+        <div class="main-content col-span-1 lg:col-span-8">
+            <h1>Joy With Tokens</h1>
+                
+                Category: <b>web</b>
+                
+                
+                
+
+                <blockquote>
+<p>We&rsquo;re trying out some fancy new security technologies on our <a href="http://host1.metaproblems.com:4200/">new site</a>! We&rsquo;re excited to prove just how effective they are at keeping hackers like you out. Just to show you how secure we are, we invite you to try to take over the admin account. We&rsquo;ll even give you the admin&rsquo;s email: <a href="mailto:admin@joywithtokens.metaproblems.com">admin@joywithtokens.metaproblems.com</a>. Good luck! You&rsquo;ll need it!</p>
+</blockquote>
+<h2 id="poking-around">Poking Around</h2>
+<p>We&rsquo;re given a site with the following features, once everything is explored:</p>
+<ul>
+<li>Login</li>
+<li>Register</li>
+<li>Log out</li>
+<li>Forgot Password</li>
+<li>View Profile</li>
+<li>Edit Profile</li>
+</ul>
+<p><img src="../image-20201025202009261.png" alt="image-20201025202009261"></p>
+<p>I hadn&rsquo;t done anything with JWT (JSON Web Tokens) before, so this was a really interesting challenge. To give a more realistic impression of how I solved this challenge, I&rsquo;ll go through all the steps that didn&rsquo;t work as well.</p>
+<p>Exploring the web app, there was an &ldquo;Upload Profile Picture&rdquo; that initially smelled like LFI or PHP shell upload, but that wasn&rsquo;t it. It was at this point that the challenge name clicked (Joy With Tokens&hellip; JWT&hellip; duh). But, I didn&rsquo;t see any tokens issued to me.</p>
+<p>After a bit of poking around (and being logged in and out seemingly at random), I found that <code>login.php</code>/<code>register.php</code>/etc were being hit via AJAX, and the response (pseudo-HTTP status code responses) were being parsed in client-side JS. So I hit the endpoint manually from the command line, thinking that maybe there was an unused JWT issued there that I could abuse for some info, but there wasn&rsquo;t, that&rsquo;s just how the app works.</p>
+<h2 id="getting-token">Getting Token</h2>
+<p>So I poke around, click all the buttons, and see nothing. I&rsquo;m absolutely lost and have no idea where the sneaky webapp is hiding the magic tokens&hellip; Asking the admins for a nudge, they reply:</p>
+<blockquote>
+<p>Have you tried requesting a password reset?</p>
+</blockquote>
+<p>I mean, of course I did, I&rsquo;m a professional web button clicker. Turns out you need to give the web application a real email, because the password reset actually sends you an email&hellip; Maybe I&rsquo;m stupid but I didn&rsquo;t expect that, usually challenges say if you need a real email. Anyhow&hellip;</p>
+<p><img src="../image-20201025202837537.png" alt="image-20201025202837537"></p>
+<p>Token acquired! :sunglasses:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http://host1.metaproblems.com:4200/reset.php?i<span style="color:#f92672">=</span>eyJqa3UiOiIuXC9rZXlzLmpzb24iLCJ0eXAiOiJKV1QiLCJhbGc....4A8PpDNrUYkE9chO4I3wVwh_4cEx1Q</code></pre></div>
+<h2 id="generating-payload">Generating Payload</h2>
+<p>Looking at this in <a href="jwt.io">JWT.io</a>, we see a few interesting things, namely that the <code>JKU</code> is referenced by a relative path, and&hellip;</p>
+<p><img src="../image-20201025203224654.png" alt="image-20201025203224654"></p>
+<p>JKU is a path to grab keys from in order to verify the signature of the JWT. They&rsquo;re publicly accessible.</p>
+<p><img src="../image-20201025203338971.png" alt="image-20201025203338971"></p>
+<p>So, at first glance this might look juicy, but these are just public keys and we can&rsquo;t really do anything with them. But, from this point on, it should become pretty clear what we need to do:</p>
+<ol>
+<li>Generate our own private key to sign the (forged) admin token with a different JKU</li>
+<li>Host the public keys at the path specified by the JKU so the webapp things we&rsquo;re legit</li>
+<li>etc etc profit</li>
+</ol>
+<p>We can do this manually, but <code>jwt_tool.py</code> is pretty nice and does everything for you.</p>
+<p><img src="../image-20201025203647058.png" alt="image-20201025203647058"></p>
+<h2 id="exploitation">Exploitation</h2>
+<p>Cool! Now I just host <code>coolkeys.json</code> on my external web server, pass the above key to <code>reset.php</code>, the server fetches it, and we&rsquo;re rolling in flags!</p>
+<p><img src="../image-20201025203732471.png" alt="image-20201025203732471"></p>
+<p>Hey, where&rsquo;s my juice? :(</p>
+<p>So, checking the access logs on the server, it never actually fetched it. So, does it have to be local? That would make sense since the other one was <code>./keys.json</code>. But how do we get keys locally on the server? Oh right, the profile upload. But, trying to upload <code>coolkeys.json</code> results in the error &ldquo;PNG pictures only&rdquo;, so&hellip;</p>
+<p><img src="../image-20201025204131146.png" alt="image-20201025204131146"></p>
+<p>Alright, cyber achieved:</p>
+<p><img src="../image-20201025204148024.png" alt="image-20201025204148024"></p>
+<p>We change the <code>jku</code> to be the local path to the profile image, change the admin token email, and sign it with our private key, and then send it off. It doesn&rsquo;t work the first time, so I rage-refresh, and it works!</p>
+<p><img src="../image-20201025204342639.png" alt="image-20201025204342639"></p>
+<p>I think the application was load-balanced, but the db data was not duplicated across instances&ndash; which would explain why I was being logged in/logged out all the time, and why I had to refresh like five times for the flag to work. This might&rsquo;ve been intentional, given how it said I would need luck in the description. Anyhow, neat challenge!</p>
+
+        </div>
+     </main>
+
+<footer class="footer py-1">
+    <div class="flex justify-center text-white py-1"></div>
+</footer>
+
+</body>

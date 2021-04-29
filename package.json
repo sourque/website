@@ -1,0 +1,30 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sourque/website.git"
+  },
+  "author": "",
+  "license": "GPLv2",
+  "bugs": {
+    "url": "https://github.com/sourque/website/issues"
+  },
+  "homepage": "https://github.com/sourque/website#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.2.13",
+    "tailwindcss": "^2.1.2"
+  },
+  "dependencies": {
+    "postcss-cli": "^8.3.1"
+  }
+}
